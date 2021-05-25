@@ -3,7 +3,8 @@ NAME = a.out
 CXX = clang++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
 
-SRCS = main.cpp
+SRCS = list_tests.cpp \
+	   main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)

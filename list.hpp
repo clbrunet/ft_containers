@@ -35,6 +35,7 @@ namespace ft
 		typedef typename allocator_type::const_pointer const_pointer;
 
 		// Iterators
+		class const_iterator;
 
 		class iterator : std::bidirectional_iterator_tag
 		{
@@ -84,6 +85,16 @@ namespace ft
 			}
 
 			bool operator!=(iterator const& rhs) const
+			{
+				return this->node_ != rhs.node_;
+			}
+
+			bool operator==(const_iterator const& rhs) const
+			{
+				return this->node_ == rhs.node_;
+			}
+
+			bool operator!=(const_iterator const& rhs) const
 			{
 				return this->node_ != rhs.node_;
 			}
@@ -167,6 +178,12 @@ namespace ft
 				return;
 			}
 
+			const_iterator& operator=(iterator const& rhs)
+			{
+				this->node_ = rhs.node_;
+				return *this;
+			}
+
 			const_iterator& operator=(const_iterator const& rhs)
 			{
 				this->node_ = rhs.node_;
@@ -179,6 +196,16 @@ namespace ft
 			}
 
 			bool operator!=(const_iterator const& rhs) const
+			{
+				return this->node_ != rhs.node_;
+			}
+
+			bool operator==(iterator const& rhs) const
+			{
+				return this->node_ == rhs.node_;
+			}
+
+			bool operator!=(iterator const& rhs) const
 			{
 				return this->node_ != rhs.node_;
 			}
@@ -230,30 +257,20 @@ namespace ft
 
 		explicit list(allocator_type const& alloc = allocator_type()) :
 			allocator_(alloc),
-			front_node_(NULL),
-			back_node_(NULL)
+			ghost_node_(this->allocator_node_.allocate(1))
 		{
-			this->front_node_ = this->allocator_node_.allocate(1);
-			this->back_node_ = this->allocator_node_.allocate(1);
-			this->front_node_->next = this->back_node_;
-			this->front_node_->prev = this->back_node_;
-			this->back_node_->next = this->front_node_;
-			this->back_node_->prev = this->front_node_;
+			this->ghost_node_->prev = this->ghost_node_;
+			this->ghost_node_->next = this->ghost_node_;
 			return;
 		}
 
 		explicit list(size_type n, value_type const& val = value_type(),
                 allocator_type const& alloc = allocator_type()) :
 			allocator_(alloc),
-			front_node_(NULL),
-			back_node_(NULL)
+			ghost_node_(this->allocator_node_.allocate(1))
 		{
-			this->front_node_ = this->allocator_node_.allocate(1);
-			this->back_node_ = this->allocator_node_.allocate(1);
-			this->front_node_->next = this->back_node_;
-			this->front_node_->prev = this->back_node_;
-			this->back_node_->next = this->front_node_;
-			this->back_node_->prev = this->front_node_;
+			this->ghost_node_->prev = this->ghost_node_;
+			this->ghost_node_->next = this->ghost_node_;
 			this->assign(n, val);
 			return;
 		}
@@ -263,30 +280,20 @@ namespace ft
 				allocator_type const& alloc = allocator_type(),
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) :
 			allocator_(alloc),
-			front_node_(NULL),
-			back_node_(NULL)
+			ghost_node_(this->allocator_node_.allocate(1))
 		{
-			this->front_node_ = this->allocator_node_.allocate(1);
-			this->back_node_ = this->allocator_node_.allocate(1);
-			this->front_node_->next = this->back_node_;
-			this->front_node_->prev = this->back_node_;
-			this->back_node_->next = this->front_node_;
-			this->back_node_->prev = this->front_node_;
+			this->ghost_node_->prev = this->ghost_node_;
+			this->ghost_node_->next = this->ghost_node_;
 			this->assign<InputIterator>(first, last);
 			return;
 		}
 
 		list(list const& x) :
 			allocator_(x.allocator_), 
-			front_node_(NULL),
-			back_node_(NULL)
+			ghost_node_(this->allocator_node_.allocate(1))
 		{
-			this->front_node_ = this->allocator_node_.allocate(1);
-			this->back_node_ = this->allocator_node_.allocate(1);
-			this->front_node_->next = this->back_node_;
-			this->front_node_->prev = this->back_node_;
-			this->back_node_->next = this->front_node_;
-			this->back_node_->prev = this->front_node_;
+			this->ghost_node_->prev = this->ghost_node_;
+			this->ghost_node_->next = this->ghost_node_;
 			*this = x;
 			return;
 		}
@@ -294,8 +301,7 @@ namespace ft
 		~list()
 		{
 			this->clear();
-			this->allocator_node_.deallocate(this->front_node_, 1);
-			this->allocator_node_.deallocate(this->back_node_, 1);
+			this->allocator_node_.deallocate(this->ghost_node_, 1);
 			return;
 		}
 
@@ -308,42 +314,42 @@ namespace ft
 
 		iterator begin()
 		{
-			return iterator(this->front_node_->next);
+			return iterator(this->ghost_node_->next);
 		}
 
 		const_iterator begin() const
 		{
-			return const_iterator(this->front_node_->next);
+			return const_iterator(this->ghost_node_->next);
 		}
 
 		iterator end()
 		{
-			return iterator(this->back_node_);
+			return iterator(this->ghost_node_);
 		}
 
 		const_iterator end() const
 		{
-			return const_iterator(this->back_node_);
+			return const_iterator(this->ghost_node_);
 		}
 
 		reverse_iterator rbegin()
 		{
-			return reverse_iterator(this->back_node_);
+			return reverse_iterator(this->ghost_node_);
 		}
 
 		const_reverse_iterator rbegin() const
 		{
-			return const_reverse_iterator(this->back);
+			return const_reverse_iterator(this->ghost_node_);
 		}
 
 		reverse_iterator rend()
 		{
-			return reverse_iterator(this->front_node_->next);
+			return reverse_iterator(this->ghost_node_->next);
 		}
 
 		const_reverse_iterator rend() const
 		{
-			return const_reverse_iterator(this->front_node_->next);
+			return const_reverse_iterator(this->ghost_node_->next);
 		}
 
 		bool empty() const
@@ -372,22 +378,22 @@ namespace ft
 
 		reference front()
 		{
-			return this->front_node_->next->val;
+			return this->ghost_node_->next->val;
 		}
 
 		const_reference front() const
 		{
-			return this->front_node_->next->val;
+			return this->ghost_node_->next->val;
 		}
 
 		reference back()
 		{
-			return this->back_node_->prev->val;
+			return this->ghost_node_->prev->val;
 		}
 
 		const_reference back() const
 		{
-			return this->back_node_->prev->val;
+			return this->ghost_node_->prev->val;
 		}
 
 		template <class InputIterator>
@@ -415,21 +421,19 @@ namespace ft
 		{
 			doubly_linked_list* new_elem = this->allocator_node_.allocate(1);
 			this->allocator_.construct(&new_elem->val, val);
-			new_elem->prev = this->front_node_;
-			new_elem->next = this->front_node_->next;
-			this->front_node_->next->prev = new_elem;
-			this->front_node_->prev = new_elem;
-			this->front_node_->next = new_elem;
+			new_elem->prev = this->ghost_node_;
+			new_elem->next = this->ghost_node_->next;
+			this->ghost_node_->next->prev = new_elem;
+			this->ghost_node_->next = new_elem;
 			return;
 		}
 
 		void pop_front()
 		{
-			this->allocator_.destroy(&this->front_node_->next->val);
-			doubly_linked_list* old_front = this->front_node_->next;
-			this->front_node_->prev = this->front_node_->next->next;
-			this->front_node_->next = this->front_node_->next->next;
-			this->front_node_->next->prev = this->front_node_;
+			this->allocator_.destroy(&this->ghost_node_->next->val);
+			doubly_linked_list* old_front = this->ghost_node_->next;
+			this->ghost_node_->next = old_front->next;
+			old_front->next->prev = this->ghost_node_;
 			this->allocator_node_.deallocate(old_front, 1);
 			return;
 		}
@@ -438,21 +442,19 @@ namespace ft
 		{
 			doubly_linked_list* new_elem = this->allocator_node_.allocate(1);
 			this->allocator_.construct(&new_elem->val, val);
-			new_elem->prev = this->back_node_->prev;
-			new_elem->next = this->back_node_;
-			this->back_node_->prev->next = new_elem;
-			this->back_node_->prev = new_elem;
-			this->back_node_->next = new_elem;
+			new_elem->prev = this->ghost_node_->prev;
+			new_elem->next = this->ghost_node_;
+			this->ghost_node_->prev->next = new_elem;
+			this->ghost_node_->prev = new_elem;
 			return;
 		}
 
 		void pop_back()
 		{
-			this->allocator_.destroy(&this->back_node_->prev->val);
-			doubly_linked_list* old_back = this->back_node_->next;
-			this->back_node_->prev = this->back_node_->prev->prev;
-			this->back_node_->next = this->back_node_->prev->prev;
-			this->back_node_->prev->next = this->back_node_;
+			this->allocator_.destroy(&this->ghost_node_->prev->val);
+			doubly_linked_list* old_back = this->ghost_node_->prev;
+			this->ghost_node_->prev = old_back->prev;
+			old_back->prev->next = this->ghost_node_;
 			this->allocator_node_.deallocate(old_back, 1);
 			return;
 		}
@@ -464,7 +466,7 @@ namespace ft
 			this->allocator_.construct(&new_elem->val, val);
 			new_elem->prev = node->prev;
 			new_elem->next = node;
-			new_elem->prev->next = new_elem;
+			node->prev->next = new_elem;
 			node->prev = new_elem;
 			return --position;
 		}
@@ -503,8 +505,7 @@ namespace ft
 		{
 			iterator it = first;
 			while (it != last) {
-				iterator next = it;
-				++next;
+				iterator next(it.node_->next);
 				this->erase(it);
 				it = next;
 			}
@@ -514,12 +515,9 @@ namespace ft
 		void swap(list& x)
 		{
 			doubly_linked_list* tmp;
-			tmp = this->front_node_;
-			this->front_node_ = x.front_node_;
-			x.front_node_ = tmp;
-			tmp = this->back_node_;
-			this->back_node_ = x.back_node_;
-			x.back_node_ = tmp;
+			tmp = this->ghost_node_;
+			this->ghost_node_ = x.ghost_node_;
+			x.ghost_node_ = tmp;
 			return;
 		}
 
@@ -539,44 +537,46 @@ namespace ft
 
 		void clear()
 		{
-			doubly_linked_list* current = this->front_node_->next;
-			while (current != this->back_node_)
+			doubly_linked_list* current = this->ghost_node_->next;
+			while (current != this->ghost_node_)
 			{
 				doubly_linked_list* next = current->next;
 				this->allocator_.destroy(&current->val);
 				this->allocator_node_.deallocate(current, 1);
 				current = next;
 			}
-			this->front_node_->next = this->back_node_;
-			this->back_node_->prev = this->front_node_;
+			this->ghost_node_->prev = this->ghost_node_;
+			this->ghost_node_->next = this->ghost_node_;
 			return;
 		}
 
 		void splice(iterator position, list& x)
 		{
 			doubly_linked_list* node = position.node_;
-			node->prev->next = x.front_node_->next;
-			x.front_node_->next->prev = node->prev;
-			node->prev = x.back_node_->prev;
-			x.back_node_->prev->next = node;
-			x.front_node_->prev = x.back_node_;
-			x.front_node_->next = x.back_node_;
-			x.back_node_->prev = x.front_node_;
-			x.back_node_->next = x.front_node_;
+			node->prev->next = x.ghost_node_->next;
+			x.ghost_node_->next->prev = node->prev;
+			x.ghost_node_->prev->next = node;
+			node->prev = x.ghost_node_->prev;
+			x.ghost_node_->prev = x.ghost_node_;
+			x.ghost_node_->next = x.ghost_node_;
 			return;
 		}
 
 		void splice(iterator position, list& x, iterator i)
 		{
-			this->insert(position, *i);
-			x.erase(i);
+			static_cast<void>(x);
+			this->move(position.node_, i.node_);
 			return;
 		}
 
 		void splice(iterator position, list& x, iterator first, iterator last)
 		{
-			this->insert<iterator>(position, first, last);
-			x.erase(first, last);
+			static_cast<void>(x);
+			while (first != last) {
+				iterator next(first.node_->next);
+				this->move(position.node_, first.node_);
+				first = next;
+			}
 			return;
 		}
 
@@ -585,9 +585,8 @@ namespace ft
 			for (iterator it = this->begin(), ite = this->end(); it != ite;
 					++it) {
 				if (*it == val) {
-					iterator to_erase(it);
 					--it;
-					this->erase(to_erase);
+					this->erase(iterator(it.node_->next));
 				}
 			}
 			return;
@@ -599,9 +598,8 @@ namespace ft
 			for (iterator it = this->begin(), ite = this->end(); it != ite;
 					++it) {
 				if (pred(*it) == true) {
-					iterator to_erase(it);
 					--it;
-					this->erase(to_erase);
+					this->erase(iterator(it.node_->next));
 				}
 			}
 			return;
@@ -616,12 +614,12 @@ namespace ft
 		template <class BinaryPredicate>
 		void unique(BinaryPredicate binary_pred)
 		{
-			for (iterator it = this->begin(), ite = --this->end(); it != ite;
+			for (iterator it = ++this->begin(), ite = this->end(); it != ite;
 					++it) {
-				iterator next_it(it);
-				++next_it;
-				if (binary_pred(*next_it, *it) == true) {
-					this->erase(next_it);
+				iterator prev_it(it.node_->prev);
+				if (binary_pred(*it, *prev_it) == true) {
+					this->erase(it);
+					it = prev_it;
 				}
 			}
 			return;
@@ -645,18 +643,16 @@ namespace ft
 			iterator ite = x.end();
 			while (it != ite && it_this != ite_this) {
 				if (comp(*it, *it_this) == true) {
-					iterator to_move = it;
 					++it;
-					move(it_this.node_, to_move.node_);
+					move(it_this.node_, it.node_->prev);
 				}
 				else {
 					++it_this;
 				}
 			}
 			while (it != ite) {
-				iterator to_move = it;
 				++it;
-				move(it_this.node_, to_move.node_);
+				move(it_this.node_, it.node_->prev);
 			}
 			return;
 		}
@@ -670,7 +666,7 @@ namespace ft
 		template <class Compare>
 		void sort(Compare comp)
 		{
-			merge_sort(this->front_node_->next, this->size(), comp);
+			merge_sort(0, this->size(), comp);
 			return;
 		}
 
@@ -681,11 +677,9 @@ namespace ft
 			iterator ite = this->end();
 			ite--;
 			while (nb_exchange > 0) {
-				iterator it_backup = it;
 				++it;
-				iterator ite_backup = ite;
 				--ite;
-				this->exchange(it_backup.node_, ite_backup.node_);
+				this->exchange(it.node_->prev, ite.node_->next);
 				--nb_exchange;
 			}
 			return;
@@ -701,8 +695,7 @@ namespace ft
 
 		allocator_type allocator_;
 		typename allocator_type::template rebind<doubly_linked_list>::other allocator_node_;
-		doubly_linked_list* front_node_;
-		doubly_linked_list* back_node_;
+		doubly_linked_list* ghost_node_;
 
 		static bool is_less_than(value_type const& val1, value_type const& val2)
 		{
@@ -763,10 +756,12 @@ namespace ft
 				doubly_linked_list* right_first_node, size_type size,
 				Compare comp)
 		{
-			for (size_type i = 0; i < size; i++) {
+			size_type right_node_left = size / 2;
+			for (size_type i = 0; i < size && right_node_left > 0; i++) {
 				if (comp(right_first_node->val, left_first_node->val) == true) {
 					right_first_node = right_first_node->next;
 					move(left_first_node, right_first_node->prev);
+					right_node_left--;
 				}
 				else {
 					left_first_node = left_first_node->next;
@@ -776,18 +771,30 @@ namespace ft
 		}
 
 		template <class Compare>
-		void merge_sort(doubly_linked_list* first_node, size_type size, Compare comp)
+		void merge_sort(size_type index_first_node, size_type size, Compare comp)
 		{
 			if (size < 2) {
 				return;
 			}
 			size_type left_size = size / 2 + size % 2;
+			doubly_linked_list* first_node = this->begin().node_;
+			for (size_type i = 0; i < index_first_node; i++) {
+				first_node = first_node->next;
+			}
 			doubly_linked_list* right_first_node = first_node;
 			for (size_type i = 0; i < left_size; i++) {
 				right_first_node = right_first_node->next;
 			}
-			merge_sort(first_node, left_size, comp);
-			merge_sort(right_first_node, size / 2, comp);
+			merge_sort(index_first_node, left_size, comp);
+			merge_sort(index_first_node + left_size, size / 2, comp);
+			first_node = this->begin().node_;
+			for (size_type i = 0; i < index_first_node; i++) {
+				first_node = first_node->next;
+			}
+			right_first_node = first_node;
+			for (size_type i = 0; i < left_size; i++) {
+				right_first_node = right_first_node->next;
+			}
 			merge_halves(first_node, right_first_node, size, comp);
 			return;
 		}
@@ -820,13 +827,9 @@ namespace ft
 	{
 		typename ft::list<T,Alloc>::const_iterator lhs_it = lhs.begin(),
 				lhs_ite = lhs.end(), rhs_it = rhs.begin(), rhs_ite = rhs.end();
-		while (lhs_it != lhs_ite) {
-			if (rhs_it == rhs_ite || !(*lhs_it < *rhs_it)
-					|| *rhs_it < *lhs_it) {
-				return false;
-			}
-			else if (*lhs_it < *rhs_it || !(*rhs_it < *lhs_it)) {
-				return true;
+		while (lhs_it != lhs_ite && rhs_it != rhs_ite) {
+			if (*lhs_it != *rhs_it) {
+				return *lhs_it < *rhs_it;
 			}
 			++lhs_it;
 			++rhs_it;
