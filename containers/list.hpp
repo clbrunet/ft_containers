@@ -1,13 +1,12 @@
 #ifndef LIST_HPP
 #define LIST_HPP
 
-#include <iostream>
-#include <stdlib.h>
 #include <iterator>
+#include <cstddef>
 #include <memory>
-#include <fstream>
 
 #include "enable_if.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -18,6 +17,7 @@ namespace ft
 		T val;
 		doubly_linked_list* next;
 	};
+
 	template < class T, class Alloc = std::allocator<T> >
 	class list
 	{
@@ -77,16 +77,6 @@ namespace ft
 			{
 				this->node_ = rhs.node_;
 				return *this;
-			}
-
-			bool operator==(iterator const& rhs) const
-			{
-				return this->node_ == rhs.node_;
-			}
-
-			bool operator!=(iterator const& rhs) const
-			{
-				return this->node_ != rhs.node_;
 			}
 
 			bool operator==(const_iterator const& rhs) const
@@ -247,8 +237,8 @@ namespace ft
 			}
 		};
 
-		typedef std::reverse_iterator<iterator> reverse_iterator;
-		typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator> reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 		typedef std::ptrdiff_t difference_type;
 		typedef std::size_t size_type;
@@ -278,7 +268,8 @@ namespace ft
 		template <class InputIterator>
 		list(InputIterator first, InputIterator last,
 				allocator_type const& alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) :
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+				bool>::type = true) :
 			allocator_(alloc),
 			ghost_node_(this->allocator_node_.allocate(1))
 		{
@@ -354,10 +345,7 @@ namespace ft
 
 		bool empty() const
 		{
-			if (this->size() == 0) {
-				return true;
-			}
-			return false;
+			return this->ghost_node_->next == this->ghost_node_;
 		}
 
 		size_type size() const

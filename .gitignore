@@ -1,7 +1,4 @@
 /compile_flags.txt
-/a.out
+/test
 /tags
-/ft
-/std
-/.gdb_history
 *.o

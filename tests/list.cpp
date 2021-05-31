@@ -32,11 +32,11 @@ namespace tests { namespace list
 		std::cout << "Constructors tests :\n";
 
 		ft::list<int> default_lst;
-		std::cout << "- default constructor list, empty() : " << std::boolalpha
+		std::cout << "- default constructor, empty() : " << std::boolalpha
 			<< default_lst.empty() << "\n";
 
 		ft::list<int> fill(4, 42);
-		std::cout << "- fill constructor list, values :";
+		std::cout << "- fill constructor, values :";
 		for (ft::list<int>::const_iterator cit = fill.begin(),
 				cite = fill.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
@@ -51,7 +51,7 @@ namespace tests { namespace list
 		util.push_back(5);
 
 		ft::list<int> range(++util.begin(), --util.end());
-		std::cout << "- range constructor list, values :";
+		std::cout << "- range constructor, values :";
 		for (ft::list<int>::const_iterator cit = range.begin(),
 				cite = range.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
@@ -59,7 +59,7 @@ namespace tests { namespace list
 		std::cout << "\n";
 
 		ft::list<int> copy(util);
-		std::cout << "- copy constructor list, values :";
+		std::cout << "- copy constructor, values :";
 		for (ft::list<int>::const_iterator cit = copy.begin(),
 				cite = copy.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
@@ -842,6 +842,10 @@ namespace tests { namespace list
 		size();
 		std::cout << "\n";
 		max_size();
+		std::cout << "\n";
+		front();
+		std::cout << "\n";
+		back();
 		std::cout << "\n";
 		assign();
 		std::cout << "\n";
