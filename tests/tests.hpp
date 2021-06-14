@@ -7,6 +7,7 @@
 
 #include "list.hpp"
 #include "vector.hpp"
+#include "map.hpp"
 
 namespace tests
 {
@@ -16,6 +17,11 @@ namespace tests
 	}
 
 	namespace vector
+	{
+		void launch();
+	}
+
+	namespace map
 	{
 		void launch();
 	}

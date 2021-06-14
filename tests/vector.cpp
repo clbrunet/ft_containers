@@ -301,7 +301,6 @@ namespace tests { namespace vector
 		}
 		std::cout << "\n";
 
-
 		std::cout << std::flush;
 	}
 
@@ -573,6 +572,29 @@ namespace tests { namespace vector
 		std::cout << std::flush;
 	}
 
+	static void print_vectors_comparaison(ft::vector<int> const& vec,
+			ft::vector<int> const& vec2)
+	{
+		std::cout << "  vec values :";
+		for (ft::vector<int>::const_iterator cit = vec.begin(),
+				cite = vec.end(); cit != cite; ++cit) {
+			std::cout << " " << *cit;
+		}
+		std::cout << "\n";
+		std::cout << "  vec2 values :";
+		for (ft::vector<int>::const_iterator cit = vec2.begin(),
+				cite = vec2.end(); cit != cite; ++cit) {
+			std::cout << " " << *cit;
+		}
+		std::cout << "\n";
+		std::cout << "- vec == vec2 : " << std::boolalpha << (vec == vec2)
+			<< "\n";
+		std::cout << "- vec < vec2 : " << std::boolalpha << (vec < vec2)
+			<< "\n";
+		std::cout << "- vec >= vec2 : " << std::boolalpha << (vec >= vec2)
+			<< "\n";
+	}
+
 	void relational_operators()
 	{
 		std::cout << "Relational operators tests :\n";
@@ -580,66 +602,15 @@ namespace tests { namespace vector
 		ft::vector<int> vec(2);
 		ft::vector<int> vec2(3);
 
-		std::cout << "  vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
-				cite = vec.end(); cit != cite; ++cit) {
-			std::cout << " " << *cit;
-		}
-		std::cout << "\n";
-		std::cout << "  vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
-				cite = vec2.end(); cit != cite; ++cit) {
-			std::cout << " " << *cit;
-		}
-		std::cout << "\n";
-		std::cout << "  vec == vec2 : " << std::boolalpha << (vec == vec2)
-			<< "\n";
-		std::cout << "  vec < vec2 : " << std::boolalpha << (vec < vec2)
-			<< "\n";
-		std::cout << "  vec >= vec2 : " << std::boolalpha << (vec >= vec2)
-			<< "\n";
+		print_vectors_comparaison(vec, vec2);
 
 		std::cout << "\n";
 		vec.push_back(1);
-		std::cout << "  vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
-				cite = vec.end(); cit != cite; ++cit) {
-			std::cout << " " << *cit;
-		}
-		std::cout << "\n";
-		std::cout << "  vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
-				cite = vec2.end(); cit != cite; ++cit) {
-			std::cout << " " << *cit;
-		}
-		std::cout << "\n";
-		std::cout << "  vec == vec2 : " << std::boolalpha << (vec == vec2)
-			<< "\n";
-		std::cout << "  vec < vec2 : " << std::boolalpha << (vec < vec2)
-			<< "\n";
-		std::cout << "  vec >= vec2 : " << std::boolalpha << (vec >= vec2)
-			<< "\n";
+		print_vectors_comparaison(vec, vec2);
 
 		std::cout << "\n";
 		vec.back() = 0;
-		std::cout << "  vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
-				cite = vec.end(); cit != cite; ++cit) {
-			std::cout << " " << *cit;
-		}
-		std::cout << "\n";
-		std::cout << "  vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
-				cite = vec2.end(); cit != cite; ++cit) {
-			std::cout << " " << *cit;
-		}
-		std::cout << "\n";
-		std::cout << "  vec == vec2 : " << std::boolalpha << (vec == vec2)
-			<< "\n";
-		std::cout << "  vec < vec2 : " << std::boolalpha << (vec < vec2)
-			<< "\n";
-		std::cout << "  vec >= vec2 : " << std::boolalpha << (vec >= vec2)
-			<< "\n";
+		print_vectors_comparaison(vec, vec2);
 
 		std::cout << std::flush;
 	}

@@ -5,13 +5,16 @@ CXXFLAGS = -I ./containers/ -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=addr
 
 SRCS = tests/list.cpp \
 	   tests/vector.cpp \
+	   tests/map.cpp \
 	   tests/main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-DEPS = ./containers/enable_if.hpp		\
-	   ./containers/reverse_iterator.hpp\
+DEPS = ./containers/reverse_iterator.hpp\
+	   ./containers/enable_if.hpp		\
 	   ./containers/list.hpp			\
-	   ./containers/vector.hpp
+	   ./containers/vector.hpp			\
+	   ./containers/map.hpp				\
+	   ./tests/tests.hpp
 
 %.o: %.cpp Makefile $(DEPS)
 	@echo Compiling $<

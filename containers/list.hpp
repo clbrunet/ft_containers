@@ -243,8 +243,6 @@ namespace ft
 		typedef std::ptrdiff_t difference_type;
 		typedef std::size_t size_type;
 
-		// Constructors
-
 		explicit list(allocator_type const& alloc = allocator_type()) :
 			allocator_(alloc),
 			ghost_node_(this->allocator_node_.allocate(1))
@@ -675,7 +673,7 @@ namespace ft
 
 		allocator_type get_allocator() const
 		{
-			return new allocator_type;
+			return this->allocator_;
 		}
 
 	protected:
