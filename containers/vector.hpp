@@ -10,6 +10,8 @@
 
 #include "enable_if.hpp"
 #include "reverse_iterator.hpp"
+#include "iterator_traits.hpp"
+#include "comparaison.hpp"
 
 namespace ft
 {
@@ -27,7 +29,7 @@ namespace ft
 		class const_iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-		typedef std::ptrdiff_t difference_type;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 		typedef std::size_t size_type;
 
 		class iterator : std::random_access_iterator_tag
@@ -754,14 +756,7 @@ namespace ft
 		if (lhs.size() != rhs.size()) {
 			return false;
 		}
-		for (typename vector<T,Alloc>::const_iterator lhs_it = lhs.begin(),
-				lhs_ite = lhs.end(), rhs_it = rhs.begin();
-				lhs_it != lhs_ite; ++lhs_it, ++rhs_it) {
-			if (!(*lhs_it == *rhs_it)) {
-				return false;
-			}
-		}
-		return true;
+		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
 	template <class T, class Alloc>
@@ -773,16 +768,8 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator<(vector<T,Alloc> const& lhs, vector<T,Alloc> const& rhs)
 	{
-		typename vector<T,Alloc>::const_iterator lhs_it = lhs.begin(),
-				lhs_ite = lhs.end(), rhs_it = rhs.begin(), rhs_ite = rhs.end();
-		while (lhs_it != lhs_ite && rhs_it != rhs_ite) {
-			if (*lhs_it != *rhs_it) {
-				return *lhs_it < *rhs_it;
-			}
-			++lhs_it;
-			++rhs_it;
-		}
-		return rhs_it != rhs_ite;
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(),
+				rhs.begin(), rhs.end());
 	}
 
 	template <class T, class Alloc>

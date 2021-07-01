@@ -9,11 +9,8 @@
 
 #include "enable_if.hpp"
 #include "reverse_iterator.hpp"
-
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-
+#include "iterator_traits.hpp"
+#include "comparaison.hpp"
 
 namespace ft
 {
@@ -111,6 +108,86 @@ namespace ft
 		return !(lhs < rhs);
 	}
 
+	template <class T1, class T2>
+	pair<T1,T2> make_pair(T1 x, T2 y)
+	{
+		return pair<T1,T2>(x,y);
+	}
+
+	template <class ValueType>
+	class rbt_node
+	{
+	public:
+		ValueType val;
+		bool is_red;
+		rbt_node* parent;
+		rbt_node* left;
+		rbt_node* right;
+
+		rbt_node() :
+			is_red(true),
+			parent(NULL),
+			left(NULL),
+			right(NULL)
+		{
+			return;
+		}
+
+		rbt_node(rbt_node const& src) :
+			is_red(src.is_red),
+			parent(src.parent),
+			left(src.left),
+			right(src.right)
+		{
+			return;
+		}
+
+		~rbt_node()
+		{
+			return;
+		}
+
+		rbt_node& operator=(rbt_node const& rhs)
+		{
+			this->is_red = rhs.is_red;
+			this->parent = rhs.parent;
+			this->left = rhs.left;
+			this->right = rhs.right;
+			return *this;
+		}
+
+		rbt_node* get_grand_parent() const
+		{
+			if (this->parent == NULL) {
+				return NULL;
+			}
+			return this->parent->parent;
+		}
+
+		rbt_node* get_uncle() const
+		{
+			rbt_node* grand_parent = get_grand_parent();
+			if (grand_parent == NULL) {
+				return NULL;
+			}
+			if (grand_parent->left == this->parent) {
+				return grand_parent->right;
+			}
+			else {
+				return grand_parent->left;
+			}
+		}
+
+		rbt_node* get_relative_max()
+		{
+			rbt_node* max = this;
+			while (max->right->right && max != max->right->left) {
+				max = max->right;
+			}
+			return max;
+		}
+	};
+
 	template < class Key, class T, class Compare = ft::less<Key>,
 			 class Alloc = std::allocator< ft::pair<Key const, T> > >
 	class map
@@ -130,86 +207,16 @@ namespace ft
 		class const_iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-		typedef std::ptrdiff_t difference_type;
-		typedef std::size_t size_type;
-	
+
 	protected:
-		struct rbt_node
-		{
-			value_type val;
-			bool is_red;
-			rbt_node* parent;
-			rbt_node* left;
-			rbt_node* right;
-
-			rbt_node() :
-				is_red(true),
-				parent(NULL),
-				left(NULL),
-				right(NULL)
-			{
-				return;
-			}
-
-			rbt_node(rbt_node const& src) :
-				is_red(src.is_red),
-				parent(src.parent),
-				left(src.left),
-				right(src.right)
-			{
-				return;
-			}
-
-			~rbt_node()
-			{
-				return;
-			}
-
-			rbt_node& operator=(rbt_node const& rhs)
-			{
-				this->is_red = rhs.is_red;
-				this->parent = rhs.parent;
-				this->left = rhs.left;
-				this->right = rhs.right;
-				return *this;
-			}
-
-			rbt_node* get_grand_parent() const
-			{
-				if (this->parent == NULL) {
-					return NULL;
-				}
-				return this->parent->parent;
-			}
-
-			rbt_node* get_uncle() const
-			{
-				rbt_node* grand_parent = get_grand_parent();
-				if (grand_parent == NULL) {
-					return NULL;
-				}
-				if (grand_parent->left == this->parent) {
-					return grand_parent->right;
-				}
-				else {
-					return grand_parent->left;
-				}
-			}
-
-			rbt_node* get_relative_max()
-			{
-				rbt_node* max = this;
-				while (max->right->right && max != max->right->left) {
-					max = max->right;
-				}
-				return max;
-			}
-		};
-
+		typedef rbt_node<value_type> rbt_node;
 		typedef typename allocator_type::template rebind<rbt_node>::other
 			node_allocator_type;
 
 	public:
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
+		typedef std::size_t size_type;
+	
 		class value_compare
 		{
 		protected:
@@ -1274,63 +1281,6 @@ namespace ft
 			it = this->upper_bound_impl(k);
 			return pair<iterator, iterator>(it, it);
 		}
-
-	public:
-		void print_rbt() const
-		{
-			std::cout << "size = " << this->size() << std::endl;
-			std::cout << std::endl;
-			if (this->ghost_node_->left != this->ghost_node_) {
-				std::cout << "ghost->left = " << this->ghost_node_->left->val.first << std::endl;
-			}
-			if (this->ghost_node_->right != this->ghost_node_) {
-				std::cout << "ghost->right = " << this->ghost_node_->right->val.first << std::endl;
-			}
-			print_rbt(this->root_node_);
-			return;
-		}
-
-		void print_rbt(rbt_node* node) const
-		{
-			if (node == this->nil_node_ || node == this->ghost_node_) {
-				return;
-			}
-			std::cout << std::endl;
-			if (node->is_red) {
-				std::cout << RED;
-			}
-			std::cout << "val : " << node->val.first << std::endl;
-			std::cout << "parent : ";
-			if (node->parent) {
-				std::cout << node->parent->val.first << std::endl;
-			}
-			else {
-				std::cout << "NIL" << std::endl;
-			}
-			std::cout << "left : ";
-			if (node->left == this->ghost_node_) {
-				std::cout << "GHOST" << std::endl;
-			}
-			else if (node->left != this->nil_node_) {
-				std::cout << node->left->val.first << std::endl;
-			}
-			else {
-				std::cout << "NIL" << std::endl;
-			}
-			std::cout << "right : ";
-			if (node->right == this->ghost_node_) {
-				std::cout << "GHOST" << std::endl;
-			}
-			else if (node->right != this->nil_node_) {
-				std::cout << node->right->val.first << std::endl;
-			}
-			else {
-				std::cout << "NIL" << std::endl;
-			}
-			std::cout << RESET;
-			print_rbt(node->left);
-			print_rbt(node->right);
-		}
 	};
 
 	template< class Key, class T, class Compare, class Alloc >
@@ -1340,14 +1290,7 @@ namespace ft
 		if (lhs.size() != rhs.size()) {
 			return false;
 		}
-		for (typename ft::map<Key, T, Compare, Alloc>::const_iterator
-				lhs_it = lhs.begin(), lhs_ite = lhs.end(), rhs_it = rhs.begin();
-				lhs_it != lhs_ite; ++lhs_it, ++rhs_it) {
-			if (!(*lhs_it == *rhs_it)) {
-				return false;
-			}
-		}
-		return true;
+		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
 	template< class Key, class T, class Compare, class Alloc >
@@ -1361,16 +1304,8 @@ namespace ft
 	bool operator<(ft::map<Key,T,Compare,Alloc> const& lhs,
 			ft::map<Key,T,Compare,Alloc> const& rhs)
 	{
-		typename ft::map<Key, T, Compare, Alloc>::const_iterator lhs_it = lhs.begin(),
-				lhs_ite = lhs.end(), rhs_it = rhs.begin(), rhs_ite = rhs.end();
-		while (lhs_it != lhs_ite && rhs_it != rhs_ite) {
-			if (*lhs_it != *rhs_it) {
-				return *lhs_it < *rhs_it;
-			}
-			++lhs_it;
-			++rhs_it;
-		}
-		return rhs_it != rhs_ite;
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(),
+				rhs.begin(), rhs.end());
 	}
 
 	template< class Key, class T, class Compare, class Alloc >
