@@ -5,25 +5,25 @@ namespace tests { namespace list
 	void member_types()
 	{
 		std::cout << "Member Types tests : OK if you see this" << std::endl;
-		ft::list<int>::value_type vt;
+		NAMESPACE::list<int>::value_type vt;
 		static_cast<void>(vt);
-		ft::list<int>::allocator_type at;
+		NAMESPACE::list<int>::allocator_type at;
 		static_cast<void>(at);
-		ft::list<int>::reference ref = vt;
+		NAMESPACE::list<int>::reference ref = vt;
 		static_cast<void>(ref);
-		ft::list<int>::const_reference cref = vt;
+		NAMESPACE::list<int>::const_reference cref = vt;
 		static_cast<void>(cref);
-		ft::list<int>::pointer ptr;
+		NAMESPACE::list<int>::pointer ptr;
 		static_cast<void>(ptr);
-		ft::list<int>::const_pointer cptr;
+		NAMESPACE::list<int>::const_pointer cptr;
 		static_cast<void>(cptr);
-		ft::list<int>::iterator it;
-		ft::list<int>::const_iterator cit;
-		ft::list<int>::reverse_iterator rit;
-		ft::list<int>::const_reverse_iterator crit;
-		ft::list<int>::difference_type dt;
+		NAMESPACE::list<int>::iterator it;
+		NAMESPACE::list<int>::const_iterator cit;
+		NAMESPACE::list<int>::reverse_iterator rit;
+		NAMESPACE::list<int>::const_reverse_iterator crit;
+		NAMESPACE::list<int>::difference_type dt;
 		static_cast<void>(dt);
-		ft::list<int>::size_type st;
+		NAMESPACE::list<int>::size_type st;
 		static_cast<void>(st);
 	}
 
@@ -31,36 +31,36 @@ namespace tests { namespace list
 	{
 		std::cout << "Constructors tests :\n";
 
-		ft::list<int> default_lst;
+		NAMESPACE::list<int> default_lst;
 		std::cout << "- default constructor, empty() : " << std::boolalpha
 			<< default_lst.empty() << "\n";
 
-		ft::list<int> fill(4, 42);
+		NAMESPACE::list<int> fill(4, 42);
 		std::cout << "- fill constructor, values :";
-		for (ft::list<int>::const_iterator cit = fill.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = fill.begin(),
 				cite = fill.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::list<int> util;
+		NAMESPACE::list<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
 		util.push_back(4);
 		util.push_back(5);
 
-		ft::list<int> range(++util.begin(), --util.end());
+		NAMESPACE::list<int> range(++util.begin(), --util.end());
 		std::cout << "- range constructor, values :";
-		for (ft::list<int>::const_iterator cit = range.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = range.begin(),
 				cite = range.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::list<int> copy(util);
+		NAMESPACE::list<int> copy(util);
 		std::cout << "- copy constructor, values :";
-		for (ft::list<int>::const_iterator cit = copy.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = copy.begin(),
 				cite = copy.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -73,19 +73,19 @@ namespace tests { namespace list
 	{
 		std::cout << "Assignment operator tests :\n";
 
-		ft::list<int> util;
+		NAMESPACE::list<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
 		util.push_back(4);
 		util.push_back(5);
 
-		ft::list<int> copy;
+		NAMESPACE::list<int> copy;
 		copy.push_back(42);
 
 		copy = util;
 		std::cout << "- after assignment operator values :";
-		for (ft::list<int>::const_iterator cit = copy.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = copy.begin(),
 				cite = copy.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -98,7 +98,7 @@ namespace tests { namespace list
 	{
 		std::cout << "begin tests :\n";
 
-		ft::list<std::string> lst;
+		NAMESPACE::list<std::string> lst;
 		lst.push_back("first");
 		lst.push_back("second");
 		lst.push_back("last");
@@ -112,7 +112,7 @@ namespace tests { namespace list
 	{
 		std::cout << "end tests :\n";
 
-		ft::list<std::string> lst;
+		NAMESPACE::list<std::string> lst;
 		lst.push_back("first");
 		lst.push_back("second");
 		lst.push_back("last");
@@ -126,7 +126,7 @@ namespace tests { namespace list
 	{
 		std::cout << "rbegin tests :\n";
 
-		ft::list<std::string> lst;
+		NAMESPACE::list<std::string> lst;
 		lst.push_back("first");
 		lst.push_back("second");
 		lst.push_back("last");
@@ -140,7 +140,7 @@ namespace tests { namespace list
 	{
 		std::cout << "rend tests :\n";
 
-		ft::list<std::string> lst;
+		NAMESPACE::list<std::string> lst;
 		lst.push_back("first");
 		lst.push_back("second");
 		lst.push_back("last");
@@ -154,7 +154,7 @@ namespace tests { namespace list
 	{
 		std::cout << "empty tests :\n";
 
-		ft::list<bool> lst;
+		NAMESPACE::list<bool> lst;
 
 		std::cout << "- empty list, empty() : " << std::boolalpha
 			<< lst.empty() << "\n";
@@ -174,7 +174,7 @@ namespace tests { namespace list
 	{
 		std::cout << "size tests :\n";
 
-		ft::list<float> lst;
+		NAMESPACE::list<float> lst;
 
 		std::cout << "- empty list, size() : " << lst.size() << "\n";
 
@@ -194,11 +194,11 @@ namespace tests { namespace list
 	{
 		std::cout << "max_size tests :\n";
 
-		ft::list<std::string> string_lst;
+		NAMESPACE::list<std::string> string_lst;
 		std::cout << "- string_lst list, max_size() : "
 			<< string_lst.max_size() << "\n";
 
-		ft::list<char> char_lst;
+		NAMESPACE::list<char> char_lst;
 		std::cout << "- char_lst list, max_size() : "
 			<< char_lst.max_size() << "\n";
 
@@ -209,7 +209,7 @@ namespace tests { namespace list
 	{
 		std::cout << "front tests :\n";
 
-		ft::list<std::string> lst;
+		NAMESPACE::list<std::string> lst;
 		lst.push_back("first");
 		lst.push_back("second");
 		lst.push_back("last");
@@ -223,7 +223,7 @@ namespace tests { namespace list
 	{
 		std::cout << "back tests :\n";
 
-		ft::list<std::string> lst;
+		NAMESPACE::list<std::string> lst;
 		lst.push_back("first");
 		lst.push_back("second");
 		lst.push_back("last");
@@ -237,28 +237,28 @@ namespace tests { namespace list
 	{
 		std::cout << "assign tests :\n";
 
-		ft::list<int> util;
+		NAMESPACE::list<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
 		util.push_back(4);
 		util.push_back(5);
 
-		ft::list<int> range(10);
+		NAMESPACE::list<int> range(10);
 
 		range.assign(++util.begin(), --util.end());
 		std::cout << "- range assign, values :";
-		for (ft::list<int>::const_iterator cit = range.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = range.begin(),
 				cite = range.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::list<int> fill(4, 42);
+		NAMESPACE::list<int> fill(4, 42);
 
 		fill.assign(2, 21);
 		std::cout << "- fill assign, values :";
-		for (ft::list<int>::const_iterator cit = fill.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = fill.begin(),
 				cite = fill.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -271,11 +271,11 @@ namespace tests { namespace list
 	{
 		std::cout << "push_front tests :\n";
 
-		ft::list<int> lst(2);
+		NAMESPACE::list<int> lst(2);
 
 		lst.push_front(42);
 		std::cout << "- after push_front, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -288,14 +288,14 @@ namespace tests { namespace list
 	{
 		std::cout << "pop_front tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
 
 		lst.pop_front();
 		std::cout << "- after pop_front, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -308,11 +308,11 @@ namespace tests { namespace list
 	{
 		std::cout << "push_back tests :\n";
 
-		ft::list<int> lst(2);
+		NAMESPACE::list<int> lst(2);
 
 		lst.push_back(42);
 		std::cout << "- after push_back, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -325,14 +325,14 @@ namespace tests { namespace list
 	{
 		std::cout << "pop_back tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
 
 		lst.pop_back();
 		std::cout << "- after pop_back, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -345,11 +345,11 @@ namespace tests { namespace list
 	{
 		std::cout << "insert tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 
 		lst.insert(lst.end(), 42);
 		std::cout << "- after single element insert, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -357,13 +357,13 @@ namespace tests { namespace list
 
 		lst.insert(lst.begin(), 2, 21);
 		std::cout << "- after fill insert, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::list<int> util;
+		NAMESPACE::list<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
@@ -372,7 +372,7 @@ namespace tests { namespace list
 
 		lst.insert(--lst.end(), ++util.begin(), --util.end());
 		std::cout << "- after range insert, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -385,7 +385,7 @@ namespace tests { namespace list
 	{
 		std::cout << "erase tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
@@ -394,7 +394,7 @@ namespace tests { namespace list
 
 		lst.erase(++(++lst.begin()));
 		std::cout << "- after single element erase, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -402,7 +402,7 @@ namespace tests { namespace list
 
 		lst.erase(++lst.begin(), lst.end());
 		std::cout << "- after range erase, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -415,22 +415,22 @@ namespace tests { namespace list
 	{
 		std::cout << "swap tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
 		lst.push_back(4);
 		lst.push_back(5);
-		ft::list<int> lst2(3, 42);
+		NAMESPACE::list<int> lst2(3, 42);
 
 		std::cout << "- before swap, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- before swap, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -438,13 +438,13 @@ namespace tests { namespace list
 
 		lst.swap(lst2);
 		std::cout << "- after member function swap, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after member function swap, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -452,13 +452,13 @@ namespace tests { namespace list
 
 		swap(lst, lst2);
 		std::cout << "- after non member function swap, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after non member function swap, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -471,7 +471,7 @@ namespace tests { namespace list
 	{
 		std::cout << "resize tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
@@ -480,7 +480,7 @@ namespace tests { namespace list
 
 		lst.resize(3, 42);
 		std::cout << "- after smaller resize, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -488,7 +488,7 @@ namespace tests { namespace list
 
 		lst.resize(5, 42);
 		std::cout << "- after greater resize, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -501,11 +501,11 @@ namespace tests { namespace list
 	{
 		std::cout << "clear tests :\n";
 
-		ft::list<int> lst(4, 42);
+		NAMESPACE::list<int> lst(4, 42);
 
 		lst.clear();
 		std::cout << "- after clear, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -518,18 +518,18 @@ namespace tests { namespace list
 	{
 		std::cout << "splice tests :\n";
 
-		ft::list<int> lst(2, 42);
-		ft::list<int> lst2(2, 21);
+		NAMESPACE::list<int> lst(2, 42);
+		NAMESPACE::list<int> lst2(2, 21);
 
 		lst.splice(++lst.begin(), lst2);
 		std::cout << "- after entire list splice, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after entire list splice, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -542,13 +542,13 @@ namespace tests { namespace list
 		lst2.push_back(5);
 		lst.splice(lst.end(), lst2, ++lst2.begin());
 		std::cout << "- after single element splice, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after single element splice, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -556,13 +556,13 @@ namespace tests { namespace list
 
 		lst.splice(lst.begin(), lst2, ++lst2.begin(), --lst2.end());
 		std::cout << "- after range splice, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after range splice, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -575,7 +575,7 @@ namespace tests { namespace list
 	{
 		std::cout << "remove tests :\n";
 
-		ft::list<int> lst(2, 42);
+		NAMESPACE::list<int> lst(2, 42);
 		lst.push_back(42);
 		lst.push_back(1);
 		lst.push_back(42);
@@ -585,7 +585,7 @@ namespace tests { namespace list
 
 		lst.remove(42);
 		std::cout << "- after remove, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -603,7 +603,7 @@ namespace tests { namespace list
 	{
 		std::cout << "remove_if tests :\n";
 
-		ft::list<int> lst(2, 42);
+		NAMESPACE::list<int> lst(2, 42);
 		lst.push_back(42);
 		lst.push_back(1);
 		lst.push_back(42);
@@ -614,7 +614,7 @@ namespace tests { namespace list
 
 		lst.remove_if(is_even);
 		std::cout << "- after remove_if(is_even), values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -632,7 +632,7 @@ namespace tests { namespace list
 	{
 		std::cout << "unique tests :\n";
 
-		ft::list<int> lst(2, 42);
+		NAMESPACE::list<int> lst(2, 42);
 		lst.push_back(42);
 		lst.push_back(1);
 		lst.push_back(2);
@@ -647,14 +647,14 @@ namespace tests { namespace list
 
 		lst.unique();
 		std::cout << "- after unique, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		lst.unique(same_units);
 		std::cout << "- after unique(same_units), values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -667,12 +667,12 @@ namespace tests { namespace list
 	{
 		std::cout << "merge tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
 		lst.push_back(42);
-		ft::list<int> lst2;
+		NAMESPACE::list<int> lst2;
 		lst2.push_back(2);
 		lst2.push_back(2);
 		lst2.push_back(5);
@@ -680,13 +680,13 @@ namespace tests { namespace list
 
 		lst.merge(lst2);
 		std::cout << "- after merge, lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after merge, lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -699,7 +699,7 @@ namespace tests { namespace list
 	{
 		std::cout << "sort tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(10);
 		lst.push_back(2);
 		lst.push_back(3);
@@ -710,7 +710,7 @@ namespace tests { namespace list
 
 		lst.sort();
 		std::cout << "- after sort, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -723,7 +723,7 @@ namespace tests { namespace list
 	{
 		std::cout << "reverse tests :\n";
 
-		ft::list<int> lst;
+		NAMESPACE::list<int> lst;
 		lst.push_back(1);
 		lst.push_back(2);
 		lst.push_back(3);
@@ -732,7 +732,7 @@ namespace tests { namespace list
 
 		lst.reverse();
 		std::cout << "- after odd reverse, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -741,7 +741,7 @@ namespace tests { namespace list
 		lst.push_back(0);
 		lst.reverse();
 		std::cout << "- after even reverse, values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -754,17 +754,17 @@ namespace tests { namespace list
 	{
 		std::cout << "Relational operators tests :\n";
 
-		ft::list<int> lst(2);
-		ft::list<int> lst2(3);
+		NAMESPACE::list<int> lst(2);
+		NAMESPACE::list<int> lst2(3);
 
 		std::cout << "  lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "  lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -779,13 +779,13 @@ namespace tests { namespace list
 		std::cout << "\n";
 		lst.push_back(1);
 		std::cout << "  lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "  lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -800,13 +800,13 @@ namespace tests { namespace list
 		std::cout << "\n";
 		lst.back() = 0;
 		std::cout << "  lst values :";
-		for (ft::list<int>::const_iterator cit = lst.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst.begin(),
 				cite = lst.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "  lst2 values :";
-		for (ft::list<int>::const_iterator cit = lst2.begin(),
+		for (NAMESPACE::list<int>::const_iterator cit = lst2.begin(),
 				cite = lst2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}

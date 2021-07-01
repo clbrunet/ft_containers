@@ -1,4 +1,5 @@
-NAME = test
+FT_NAME = ft
+STD_NAME = std
 
 CXX = clang++
 CXXFLAGS = -I ./containers/ -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
@@ -7,31 +8,21 @@ SRCS = tests/list.cpp \
 	   tests/vector.cpp \
 	   tests/map.cpp \
 	   tests/main.cpp
-OBJS = $(SRCS:.cpp=.o)
 
-DEPS = ./containers/reverse_iterator.hpp\
-	   ./containers/enable_if.hpp		\
-	   ./containers/list.hpp			\
-	   ./containers/vector.hpp			\
-	   ./containers/map.hpp				\
-	   ./tests/tests.hpp
+all: $(FT_NAME) $(STD_NAME)
 
-%.o: %.cpp Makefile $(DEPS)
-	@echo Compiling $<
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+$(FT_NAME): $(SRCS)
+	@echo Compiling $(FT_NAME)
+	@$(CXX) $(CXXFLAGS) -DNAMESPACE=ft -o $(FT_NAME) $(SRCS)
 
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	@echo Linking objects
-	@$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
-	@echo $(NAME) created
+$(STD_NAME): $(SRCS)
+	@echo Compiling $(STD_NAME)
+	@$(CXX) $(CXXFLAGS) -DNAMESPACE=std -o $(STD_NAME) $(SRCS)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(FT_NAME) $(STD_NAME)
 
 fclean: clean
-	rm -f $(NAME)
 
 re: fclean all
 

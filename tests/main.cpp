@@ -5,16 +5,13 @@
 #include <vector>
 #include <map>
 
-#include "list.hpp"
-#include "vector.hpp"
-#include "map.hpp"
 #include "tests.hpp"
 
 int main(int argc, char* argv[])
 {
 	if (argc == 1) {
-		std::cout << "test usage :" << std::endl
-			<< "  path/test container_name" << std::endl;
+		std::cout << "usage :" << std::endl
+			<< "  " << argv[0] << " container_name" << std::endl;
 		return 1;
 	}
 	for (int i = 1; i < argc; ++i) {

@@ -5,25 +5,25 @@ namespace tests { namespace vector
 	void member_types()
 	{
 		std::cout << "Member Types tests : OK if you see this" << std::endl;
-		ft::vector<int>::value_type vt;
+		NAMESPACE::vector<int>::value_type vt;
 		static_cast<void>(vt);
-		ft::vector<int>::allocator_type at;
+		NAMESPACE::vector<int>::allocator_type at;
 		static_cast<void>(at);
-		ft::vector<int>::reference ref = vt;
+		NAMESPACE::vector<int>::reference ref = vt;
 		static_cast<void>(ref);
-		ft::vector<int>::const_reference cref = vt;
+		NAMESPACE::vector<int>::const_reference cref = vt;
 		static_cast<void>(cref);
-		ft::vector<int>::pointer ptr;
+		NAMESPACE::vector<int>::pointer ptr;
 		static_cast<void>(ptr);
-		ft::vector<int>::const_pointer cptr;
+		NAMESPACE::vector<int>::const_pointer cptr;
 		static_cast<void>(cptr);
-		ft::vector<int>::iterator it;
-		ft::vector<int>::const_iterator cit;
-		ft::vector<int>::reverse_iterator rit;
-		ft::vector<int>::const_reverse_iterator crit;
-		ft::vector<int>::difference_type dt;
+		NAMESPACE::vector<int>::iterator it;
+		NAMESPACE::vector<int>::const_iterator cit;
+		NAMESPACE::vector<int>::reverse_iterator rit;
+		NAMESPACE::vector<int>::const_reverse_iterator crit;
+		NAMESPACE::vector<int>::difference_type dt;
 		static_cast<void>(dt);
-		ft::vector<int>::size_type st;
+		NAMESPACE::vector<int>::size_type st;
 		static_cast<void>(st);
 	}
 
@@ -31,36 +31,36 @@ namespace tests { namespace vector
 	{
 		std::cout << "Constructors tests :\n";
 
-		ft::vector<int> default_vec;
+		NAMESPACE::vector<int> default_vec;
 		std::cout << "- default constructor, empty() : " << std::boolalpha
 			<< default_vec.empty() << "\n";
 
-		ft::vector<int> fill(4, 42);
+		NAMESPACE::vector<int> fill(4, 42);
 		std::cout << "- fill constructor, values :";
-		for (ft::vector<int>::const_iterator cit = fill.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = fill.begin(),
 				cite = fill.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::vector<int> util;
+		NAMESPACE::vector<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
 		util.push_back(4);
 		util.push_back(5);
 
-		ft::vector<int> range(util.begin() + 1, util.end() - 1);
+		NAMESPACE::vector<int> range(util.begin() + 1, util.end() - 1);
 		std::cout << "- range constructor, values :";
-		for (ft::vector<int>::const_iterator cit = range.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = range.begin(),
 				cite = range.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::vector<int> copy(util);
+		NAMESPACE::vector<int> copy(util);
 		std::cout << "- copy constructor, values :";
-		for (ft::vector<int>::const_iterator cit = copy.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = copy.begin(),
 				cite = copy.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -73,19 +73,19 @@ namespace tests { namespace vector
 	{
 		std::cout << "Assignment operator tests :\n";
 
-		ft::vector<int> util;
+		NAMESPACE::vector<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
 		util.push_back(4);
 		util.push_back(5);
 
-		ft::vector<int> copy;
+		NAMESPACE::vector<int> copy;
 		copy.push_back(42);
 
 		copy = util;
 		std::cout << "- after assignment operator values :";
-		for (ft::vector<int>::const_iterator cit = copy.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = copy.begin(),
 				cite = copy.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -98,7 +98,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "begin tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -112,7 +112,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "end tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -126,7 +126,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "rbegin tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -140,7 +140,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "rend tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -154,7 +154,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "size tests :\n";
 
-		ft::vector<float> vec;
+		NAMESPACE::vector<float> vec;
 
 		std::cout << "- empty vector, size() : " << vec.size() << "\n";
 
@@ -174,11 +174,11 @@ namespace tests { namespace vector
 	{
 		std::cout << "max_size tests :\n";
 
-		ft::vector<std::string> string_vec;
+		NAMESPACE::vector<std::string> string_vec;
 		std::cout << "- string_vec vector, max_size() : "
 			<< string_vec.max_size() << "\n";
 
-		ft::vector<char> char_vec;
+		NAMESPACE::vector<char> char_vec;
 		std::cout << "- char_vec vector, max_size() : "
 			<< char_vec.max_size() << "\n";
 
@@ -189,7 +189,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "resize tests :\n";
 
-		ft::vector<int> vec;
+		NAMESPACE::vector<int> vec;
 		vec.push_back(1);
 		vec.push_back(2);
 		vec.push_back(3);
@@ -198,7 +198,7 @@ namespace tests { namespace vector
 
 		vec.resize(3, 42);
 		std::cout << "- after smaller resize, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -206,7 +206,7 @@ namespace tests { namespace vector
 
 		vec.resize(5, 42);
 		std::cout << "- after greater resize, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -219,7 +219,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "capacity tests :\n";
 
-		ft::vector<float> vec;
+		NAMESPACE::vector<float> vec;
 
 		std::cout << "- empty vector, capacity() : " << vec.capacity() << "\n";
 
@@ -245,7 +245,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "empty tests :\n";
 
-		ft::vector<bool> vec;
+		NAMESPACE::vector<bool> vec;
 
 		std::cout << "- empty vector, empty() : " << std::boolalpha
 			<< vec.empty() << "\n";
@@ -265,7 +265,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "reserve tests :\n";
 
-		ft::vector<float> vec;
+		NAMESPACE::vector<float> vec;
 
 		std::cout << "- empty vector, capacity() : " << vec.capacity() << "\n";
 
@@ -290,7 +290,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "operator[] tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -308,7 +308,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "at tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -334,7 +334,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "front tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -348,7 +348,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "back tests :\n";
 
-		ft::vector<std::string> vec;
+		NAMESPACE::vector<std::string> vec;
 		vec.push_back("first");
 		vec.push_back("second");
 		vec.push_back("last");
@@ -362,28 +362,28 @@ namespace tests { namespace vector
 	{
 		std::cout << "assign tests :\n";
 
-		ft::vector<int> util;
+		NAMESPACE::vector<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
 		util.push_back(4);
 		util.push_back(5);
 
-		ft::vector<int> range(10);
+		NAMESPACE::vector<int> range(10);
 
 		range.assign(++util.begin(), --util.end());
 		std::cout << "- range assign, values :";
-		for (ft::vector<int>::const_iterator cit = range.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = range.begin(),
 				cite = range.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::vector<int> fill(4, 42);
+		NAMESPACE::vector<int> fill(4, 42);
 
 		fill.assign(2, 21);
 		std::cout << "- fill assign, values :";
-		for (ft::vector<int>::const_iterator cit = fill.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = fill.begin(),
 				cite = fill.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -396,11 +396,11 @@ namespace tests { namespace vector
 	{
 		std::cout << "push_back tests :\n";
 
-		ft::vector<int> vec(2);
+		NAMESPACE::vector<int> vec(2);
 
 		vec.push_back(42);
 		std::cout << "- after push_back, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -413,14 +413,14 @@ namespace tests { namespace vector
 	{
 		std::cout << "pop_back tests :\n";
 
-		ft::vector<int> vec;
+		NAMESPACE::vector<int> vec;
 		vec.push_back(1);
 		vec.push_back(2);
 		vec.push_back(3);
 
 		vec.pop_back();
 		std::cout << "- after pop_back, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -433,11 +433,11 @@ namespace tests { namespace vector
 	{
 		std::cout << "insert tests :\n";
 
-		ft::vector<int> vec;
+		NAMESPACE::vector<int> vec;
 
 		vec.insert(vec.end(), 42);
 		std::cout << "- after single element insert, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -445,13 +445,13 @@ namespace tests { namespace vector
 
 		vec.insert(vec.begin(), 2, 21);
 		std::cout << "- after fill insert, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 
-		ft::vector<int> util;
+		NAMESPACE::vector<int> util;
 		util.push_back(1);
 		util.push_back(2);
 		util.push_back(3);
@@ -460,7 +460,7 @@ namespace tests { namespace vector
 
 		vec.insert(--vec.end(), ++util.begin(), --util.end());
 		std::cout << "- after range insert, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -473,7 +473,7 @@ namespace tests { namespace vector
 	{
 		std::cout << "erase tests :\n";
 
-		ft::vector<int> vec;
+		NAMESPACE::vector<int> vec;
 		vec.push_back(1);
 		vec.push_back(2);
 		vec.push_back(3);
@@ -482,7 +482,7 @@ namespace tests { namespace vector
 
 		vec.erase(++(++vec.begin()));
 		std::cout << "- after single element erase, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -490,7 +490,7 @@ namespace tests { namespace vector
 
 		vec.erase(++vec.begin(), vec.end());
 		std::cout << "- after range erase, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -503,22 +503,22 @@ namespace tests { namespace vector
 	{
 		std::cout << "swap tests :\n";
 
-		ft::vector<int> vec;
+		NAMESPACE::vector<int> vec;
 		vec.push_back(1);
 		vec.push_back(2);
 		vec.push_back(3);
 		vec.push_back(4);
 		vec.push_back(5);
-		ft::vector<int> vec2(3, 42);
+		NAMESPACE::vector<int> vec2(3, 42);
 
 		std::cout << "- before swap, vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- before swap, vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec2.begin(),
 				cite = vec2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -526,13 +526,13 @@ namespace tests { namespace vector
 
 		vec.swap(vec2);
 		std::cout << "- after member function swap, vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after member function swap, vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec2.begin(),
 				cite = vec2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -540,13 +540,13 @@ namespace tests { namespace vector
 
 		swap(vec, vec2);
 		std::cout << "- after non member function swap, vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "- after non member function swap, vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec2.begin(),
 				cite = vec2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -559,11 +559,11 @@ namespace tests { namespace vector
 	{
 		std::cout << "clear tests :\n";
 
-		ft::vector<int> vec(4, 42);
+		NAMESPACE::vector<int> vec(4, 42);
 
 		vec.clear();
 		std::cout << "- after clear, values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -572,17 +572,17 @@ namespace tests { namespace vector
 		std::cout << std::flush;
 	}
 
-	static void print_vectors_comparaison(ft::vector<int> const& vec,
-			ft::vector<int> const& vec2)
+	static void print_vectors_comparaison(NAMESPACE::vector<int> const& vec,
+			NAMESPACE::vector<int> const& vec2)
 	{
 		std::cout << "  vec values :";
-		for (ft::vector<int>::const_iterator cit = vec.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec.begin(),
 				cite = vec.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
 		std::cout << "\n";
 		std::cout << "  vec2 values :";
-		for (ft::vector<int>::const_iterator cit = vec2.begin(),
+		for (NAMESPACE::vector<int>::const_iterator cit = vec2.begin(),
 				cite = vec2.end(); cit != cite; ++cit) {
 			std::cout << " " << *cit;
 		}
@@ -599,8 +599,8 @@ namespace tests { namespace vector
 	{
 		std::cout << "Relational operators tests :\n";
 
-		ft::vector<int> vec(2);
-		ft::vector<int> vec2(3);
+		NAMESPACE::vector<int> vec(2);
+		NAMESPACE::vector<int> vec2(3);
 
 		print_vectors_comparaison(vec, vec2);
 
