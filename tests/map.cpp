@@ -1,5 +1,4 @@
 #include "tests.hpp"
-#include <map>
 
 namespace tests { namespace map
 {

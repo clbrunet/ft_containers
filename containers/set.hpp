@@ -1,5 +1,5 @@
-#ifndef MAP_HPP
-#define MAP_HPP
+#ifndef SET_HPP
+#define SET_HPP
 
 #include <iostream>
 
@@ -16,18 +16,17 @@
 #include "pair.hpp"
 #include "rbt_node.hpp"
 
+
 namespace ft
 {
-	template < class Key, class T, class Compare = ft::less<Key>,
-			 class Alloc = std::allocator< ft::pair<Key const, T> > >
-	class map
+	template < class T, class Compare = less<T>, class Alloc = std::allocator<T> >
+	class set
 	{
 	public:
-		typedef Key key_type;
-		typedef T mapped_type;
-		typedef ft::pair<key_type const, mapped_type> value_type;
+		typedef T key_type;
+		typedef T value_type;
 		typedef Compare key_compare;
-		class value_compare;
+		typedef Compare value_compare;
 		typedef Alloc allocator_type;
 		typedef typename allocator_type::reference reference;
 		typedef typename allocator_type::const_reference const_reference;
@@ -47,28 +46,6 @@ namespace ft
 		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 		typedef std::size_t size_type;
 	
-		class value_compare
-		{
-		protected:
-			Compare comp_;
-
-		public:
-			typedef bool result_type;
-			typedef value_type first_argument_type;
-			typedef value_type second_argument_type;
-
-			value_compare(Compare c) :
-				comp_(c)
-			{
-				return;
-			}
-
-			bool operator()(value_type const& x, value_type const& y) const
-			{
-				return this->comp_(x.first, y.first);
-			}
-		};
-
 		class iterator : std::bidirectional_iterator_tag
 		{
 		public:
@@ -326,8 +303,7 @@ namespace ft
 		size_type size_;
 
 	public:
-
-		explicit map(key_compare const& comp = key_compare(),
+		explicit set(key_compare const& comp = key_compare(),
 				allocator_type const& alloc = allocator_type()) :
 			comp_(comp),
 			alloc_(alloc),
@@ -348,7 +324,7 @@ namespace ft
 		}
 
 		template <class InputIterator>
-		map(InputIterator first, InputIterator last,
+		set(InputIterator first, InputIterator last,
 				key_compare const& comp = key_compare(),
 				allocator_type const& alloc = allocator_type()) :
 			comp_(comp),
@@ -370,7 +346,7 @@ namespace ft
 			return;
 		}
 
-		map(map const& x) :
+		set(set const& x) :
 			comp_(x.comp_),
 			alloc_(x.alloc_),
 			node_alloc_(x.node_alloc_),
@@ -390,7 +366,7 @@ namespace ft
 			return;
 		}
 
-		~map()
+		~set()
 		{
 			this->clear();
 			this->node_alloc_.deallocate(this->ghost_node_, 1);
@@ -398,7 +374,7 @@ namespace ft
 			return;
 		}
 
-		map& operator=(map const& x)
+		set& operator=(set const& x)
 		{
 			this->clear();
 			this->comp_ = x.comp_;
@@ -464,26 +440,21 @@ namespace ft
 			return this->node_alloc_.max_size();
 		}
 
-		mapped_type& operator[](key_type const& k)
-		{
-			return (*((this->insert(value_type(k, mapped_type()))).first)).second;
-		}
-
-		ft::pair<iterator,bool> insert(value_type const& val)
+		pair<iterator,bool> insert(value_type const& val)
 		{
 			if (this->root_node_ == this->nil_node_) {
 				return this->insert_to_root(val);
 			}
 			rbt_node* node = this->root_node_;
 			while (1) {
-				if (this->comp_(val.first, node->val.first) == true) {
+				if (this->comp_(val, node->val) == true) {
 					if (node->left == this->nil_node_
 							|| node->left == this->ghost_node_) {
 						return insert_node(node, &node->left, val);
 					}
 					node = node->left;
 				}
-				else if (this->comp_(node->val.first, val.first) == true) {
+				else if (this->comp_(node->val, val) == true) {
 					if (node->right == this->nil_node_
 							|| node->right == this->ghost_node_) {
 						return insert_node(node, &node->right, val);
@@ -506,9 +477,9 @@ namespace ft
 			const_iterator next = position;
 			next++;
 			if ((previous.ptr_ == this->ghost_node_
-						|| this->comp_(previous->first, val.first) == true)
+						|| this->comp_(*previous, val) == true)
 					&& (position.ptr_ == this->ghost_node_
-						|| this->comp_(val.first, position->first) == true)) {
+						|| this->comp_(val, *position) == true)) {
 				if (position.ptr_ == this->ghost_node_) {
 					return this->insert_node(previous.ptr_,
 							&previous.ptr_->right, val).first;
@@ -523,9 +494,9 @@ namespace ft
 				}
 			}
 			else if ((position.ptr_ == this->ghost_node_
-						|| this->comp_(position->first, val.first) == true)
+						|| this->comp_(*position, val) == true)
 					&& (next.ptr_ == this->ghost_node_
-						|| this->comp_(val.first, next->first) == true)) {
+						|| this->comp_(val, *next) == true)) {
 				if (position.ptr_ == this->ghost_node_) {
 					return this->insert_node(next.ptr_,
 							&next.ptr_->left, val).first;
@@ -621,14 +592,14 @@ namespace ft
 			return;
 		}
 
-		size_type erase(key_type const& k)
+		size_type erase(value_type const& val)
 		{
 			rbt_node* node = this->root_node_;
 			while (node != this->nil_node_ && node != this->ghost_node_) {
-				if (this->comp_(k, node->val.first) == true) {
+				if (this->comp_(val, node->val) == true) {
 					node = node->left;
 				}
-				else if (this->comp_(node->val.first, k) == true) {
+				else if (this->comp_(node->val, val) == true) {
 					node = node->right;
 				}
 				else {
@@ -649,7 +620,7 @@ namespace ft
 			return;
 		}
 
-		void swap(map& x)
+		void swap(set& x)
 		{
 			key_compare key_compare_tmp = this->comp_;
 			this->comp_ = x.comp_;
@@ -691,55 +662,35 @@ namespace ft
 
 		value_compare value_comp() const
 		{
-			return value_compare(this->comp_);
+			return this->comp_;
 		}
 
-		iterator find(key_type const& k)
+		iterator find(value_type const& val) const
 		{
-			return this->find_impl(k);
+			return this->find_impl(val);
 		}
 
-		const_iterator find(key_type const& k) const
+		size_type count(value_type const& val) const
 		{
-			return this->find_impl(k);
-		}
-
-		size_type count(key_type const& k) const
-		{
-			if (this->find(k) != this->end()) {
+			if (this->find(val) != this->end()) {
 				return 1;
 			}
 			return 0;
 		}
 
-		iterator lower_bound(key_type const& k)
+		iterator lower_bound(value_type const& val) const
 		{
-			return this->lower_bound_impl(k);
+			return this->lower_bound_impl(val);
 		}
 
-		const_iterator lower_bound(key_type const& k) const
+		iterator upper_bound(value_type const& val) const
 		{
-			return const_iterator(this->lower_bound_impl(k));
+			return this->upper_bound_impl(val);
 		}
 
-		iterator upper_bound(key_type const& k)
+		pair<iterator,iterator> equal_range(value_type const& val) const
 		{
-			return this->upper_bound_impl(k);
-		}
-
-		const_iterator upper_bound(key_type const& k) const
-		{
-			return const_iterator(this->upper_bound_impl(k));
-		}
-
-		pair<const_iterator,const_iterator> equal_range(key_type const& k) const
-		{
-			return this->equal_range_impl(k);
-		}
-
-		pair<iterator,iterator> equal_range(key_type const& k)
-		{
-			return this->equal_range_impl(k);
+			return this->equal_range_impl(val);
 		}
 
 		allocator_type get_allocator() const
@@ -1035,14 +986,14 @@ namespace ft
 			return;
 		}
 
-		iterator find_impl(key_type const& k) const
+		iterator find_impl(value_type const& val) const
 		{
 			rbt_node* node = this->root_node_;
 			while (node != this->nil_node_ && node != this->ghost_node_) {
-				if (this->comp_(k, node->val.first) == true) {
+				if (this->comp_(val, node->val) == true) {
 					node = node->left;
 				}
-				else if (this->comp_(node->val.first, k) == true) {
+				else if (this->comp_(node->val, val) == true) {
 					node = node->right;
 				}
 				else {
@@ -1052,11 +1003,11 @@ namespace ft
 			return this->end_impl();
 		}
 
-		iterator lower_bound_impl(key_type const& k) const
+		iterator lower_bound_impl(value_type const& val) const
 		{
 			rbt_node* node = this->root_node_;
 			while (node != this->ghost_node_
-					&& this->comp_(node->val.first, k) == true) {
+					&& this->comp_(node->val, val) == true) {
 				node = node->right;
 			}
 			if (node == this->ghost_node_) {
@@ -1065,22 +1016,22 @@ namespace ft
 			while (node->left != this->nil_node_
 						&& node->left != this->ghost_node_
 						&& this->comp_(
-							node->left->get_relative_max()->val.first, k)
+							node->left->get_relative_max()->val, val)
 						== false) {
 				node = node->left;
 				while (node != this->nil_node_
-						&& this->comp_(node->val.first, k) == true) {
+						&& this->comp_(node->val, val) == true) {
 					node = node->right;
 				}
 			}
 			return iterator(node);
 		}
 
-		iterator upper_bound_impl(key_type const& k) const
+		iterator upper_bound_impl(value_type const& val) const
 		{
 			rbt_node* node = this->root_node_;
 			while (node != this->ghost_node_
-					&& this->comp_(k, node->val.first) == false) {
+					&& this->comp_(val, node->val) == false) {
 				node = node->right;
 			}
 			if (node == this->ghost_node_) {
@@ -1088,34 +1039,34 @@ namespace ft
 			}
 			while (node->left != this->nil_node_
 						&& node->left != this->ghost_node_
-						&& this->comp_(k,
-							node->left->get_relative_max()->val.first)
+						&& this->comp_(val,
+							node->left->get_relative_max()->val)
 						== true) {
 				node = node->left;
 				while (node != this->nil_node_
-						&& this->comp_(k, node->val.first) == false) {
+						&& this->comp_(val, node->val) == false) {
 					node = node->right;
 				}
 			}
 			return iterator(node);
 		}
 
-		pair<iterator,iterator> equal_range_impl(key_type const& k) const
+		pair<iterator,iterator> equal_range_impl(value_type const& val) const
 		{
-			iterator it = this->find_impl(k);
+			iterator it = this->find_impl(val);
 			if (it != this->end_impl()) {
 				iterator next = it;
 				++next;
 				return pair<iterator, iterator>(it, next);
 			}
-			it = this->upper_bound_impl(k);
+			it = this->upper_bound_impl(val);
 			return pair<iterator, iterator>(it, it);
 		}
 	};
 
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator==(ft::map<Key,T,Compare,Alloc> const& lhs,
-			ft::map<Key,T,Compare,Alloc> const& rhs)
+	template<class T, class Compare, class Alloc>
+	bool operator==(set<T, Compare, Alloc> const& lhs,
+			set<T, Compare, Alloc> const& rhs)
 	{
 		if (lhs.size() != rhs.size()) {
 			return false;
@@ -1123,45 +1074,44 @@ namespace ft
 		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator!=(ft::map<Key,T,Compare,Alloc> const& lhs,
-			ft::map<Key,T,Compare,Alloc> const& rhs)
+	template<class T, class Compare, class Alloc>
+	bool operator!=(set<T, Compare, Alloc> const& lhs,
+			set<T, Compare, Alloc> const& rhs)
 	{
 		return !(lhs == rhs);
 	}
 
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator<(ft::map<Key,T,Compare,Alloc> const& lhs,
-			ft::map<Key,T,Compare,Alloc> const& rhs)
+	template<class T, class Compare, class Alloc>
+	bool operator<(set<T, Compare, Alloc> const& lhs,
+			set<T, Compare, Alloc> const& rhs)
 	{
 		return ft::lexicographical_compare(lhs.begin(), lhs.end(),
 				rhs.begin(), rhs.end());
 	}
 
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator<=(ft::map<Key,T,Compare,Alloc> const& lhs,
-			ft::map<Key,T,Compare,Alloc> const& rhs)
+	template<class T, class Compare, class Alloc>
+	bool operator<=(set<T, Compare, Alloc> const& lhs,
+			set<T, Compare, Alloc> const& rhs)
 	{
 		return !(rhs < lhs);
 	}
 
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator>(ft::map<Key,T,Compare,Alloc> const& lhs,
-			ft::map<Key,T,Compare,Alloc> const& rhs)
+	template<class T, class Compare, class Alloc>
+	bool operator>(set<T, Compare, Alloc> const& lhs,
+			set<T, Compare, Alloc> const& rhs)
 	{
 		return rhs < lhs;
 	}
 
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator>=(ft::map<Key,T,Compare,Alloc> const& lhs,
-			ft::map<Key,T,Compare,Alloc> const& rhs)
+	template<class T, class Compare, class Alloc>
+	bool operator>=(set<T, Compare, Alloc> const& lhs,
+			set<T, Compare, Alloc> const& rhs)
 	{
 		return !(lhs < rhs);
 	}
 
-	template< class Key, class T, class Compare, class Alloc >
-	void swap(ft::map<Key,T,Compare,Alloc>& lhs,
-			ft::map<Key,T,Compare,Alloc>& rhs)
+	template<class T, class Compare, class Alloc>
+	void swap(set<T, Compare, Alloc>& lhs, set<T, Compare, Alloc>& rhs)
 	{
 		lhs.swap(rhs);
 		return;

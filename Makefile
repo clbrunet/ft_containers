@@ -8,6 +8,7 @@ SRCS = tests/list.cpp \
 	   tests/vector.cpp \
 	   tests/map.cpp \
 	   tests/stack.cpp \
+	   tests/set.cpp \
 	   tests/main.cpp
 
 all: $(FT_NAME) $(STD_NAME)

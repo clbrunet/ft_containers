@@ -13,11 +13,13 @@
 #include <vector>
 #include <map>
 #include <stack>
+#include <set>
 
 #include "list.hpp"
 #include "vector.hpp"
 #include "map.hpp"
 #include "stack.hpp"
+#include "set.hpp"
 
 namespace tests
 {
@@ -37,6 +39,11 @@ namespace tests
 	}
 
 	namespace stack
+	{
+		void launch();
+	}
+
+	namespace set
 	{
 		void launch();
 	}

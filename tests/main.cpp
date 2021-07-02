@@ -29,6 +29,9 @@ int main(int argc, char* argv[])
 		else if (strcmp(argv[i], "stack") == 0) {
 			tests::stack::launch();
 		}
+		else if (strcmp(argv[i], "set") == 0) {
+			tests::set::launch();
+		}
 		else {
 			std::cout << "Unknown container_name : " << argv[i] << std::endl;
 		}
