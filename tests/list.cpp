@@ -1,4 +1,5 @@
 #include "tests.hpp"
+#include <unistd.h>
 
 namespace tests { namespace list
 {
@@ -179,7 +180,7 @@ namespace tests { namespace list
 		std::cout << "- empty list, size() : " << lst.size() << "\n";
 
 		lst.push_back(42.42);
-		std::cout << "- 1 elem list, size() :" << lst.size() << "\n";
+		std::cout << "- 1 elem list, size() : " << lst.size() << "\n";
 
 		lst.insert(lst.end(), 20, 21.21);
 		std::cout << "- 21 elems list, size() : " << lst.size() << "\n";
@@ -823,6 +824,14 @@ namespace tests { namespace list
 
 	void launch()
 	{
+		struct timeval	timeval;
+
+		if (gettimeofday(&timeval, NULL) == -1) {
+			std::cout << "gettimeofday failed" << std::endl;
+			return;
+		}
+		unsigned long long time_start = timeval.tv_sec * 1000000 + timeval.tv_usec;
+
 		member_types();
 		std::cout << "\n";
 		constructors();
@@ -882,5 +891,14 @@ namespace tests { namespace list
 		reverse();
 		std::cout << "\n";
 		relational_operators();
+
+		if (gettimeofday(&timeval, NULL) == -1) {
+			std::cout << "gettimeofday failed" << std::endl;
+			return;
+		}
+		unsigned long long time_end = timeval.tv_sec * 1000000 + timeval.tv_usec;
+
+		std::cout << "\nTests duration : " << time_end - time_start
+			<< " microseconds" << std::endl;
 	}
 } }

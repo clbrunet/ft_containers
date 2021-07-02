@@ -633,6 +633,14 @@ namespace tests { namespace map
 
 	void launch()
 	{
+		struct timeval	timeval;
+
+		if (gettimeofday(&timeval, NULL) == -1) {
+			std::cout << "gettimeofday failed" << std::endl;
+			return;
+		}
+		unsigned long long time_start = timeval.tv_sec * 1000000 + timeval.tv_usec;
+
 		member_types();
 		std::cout << "\n";
 		constructors();
@@ -679,6 +687,13 @@ namespace tests { namespace map
 		std::cout << "\n";
 		relational_operators();
 
-		std::cout << std::flush;
+		if (gettimeofday(&timeval, NULL) == -1) {
+			std::cout << "gettimeofday failed" << std::endl;
+			return;
+		}
+		unsigned long long time_end = timeval.tv_sec * 1000000 + timeval.tv_usec;
+
+		std::cout << "\nTests duration : " << time_end - time_start
+			<< " microseconds" << std::endl;
 	}
 } }

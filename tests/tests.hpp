@@ -5,6 +5,7 @@
 #define NAMESPACE ft
 #endif
 
+# include <sys/time.h>
 #include <iostream>
 #include <string>
 #include <climits>

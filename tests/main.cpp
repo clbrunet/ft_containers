@@ -14,7 +14,9 @@ int main(int argc, char* argv[])
 			<< "  " << argv[0] << " container_name" << std::endl;
 		return 1;
 	}
+	std::cout << "Start tests\n";
 	for (int i = 1; i < argc; ++i) {
+		std::cout << std::endl;
 		if (strcmp(argv[i], "list") == 0) {
 			tests::list::launch();
 		}
@@ -25,7 +27,7 @@ int main(int argc, char* argv[])
 			tests::map::launch();
 		}
 		else {
-			std::cout << "Unknown container_name: " << argv[i] << std::endl;
+			std::cout << "Unknown container_name : " << argv[i] << std::endl;
 		}
 	}
 	return 0;

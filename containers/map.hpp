@@ -242,10 +242,10 @@ namespace ft
 		class iterator : std::bidirectional_iterator_tag
 		{
 		public:
-			typedef value_type value_type;
-			typedef std::ptrdiff_t difference_type;
-			typedef value_type* pointer;
-			typedef value_type& reference;
+			typedef typename ft::iterator_traits<pointer>::value_type value_type;
+			typedef typename ft::iterator_traits<pointer>::difference_type difference_type;
+			typedef pointer pointer;
+			typedef typename ft::iterator_traits<pointer>::reference reference;
 			typedef std::bidirectional_iterator_tag iterator_category;
 
 			rbt_node* ptr_;
@@ -359,10 +359,10 @@ namespace ft
 		class const_iterator : std::bidirectional_iterator_tag
 		{
 		public:
-			typedef value_type const value_type;
-			typedef std::ptrdiff_t difference_type;
-			typedef value_type* pointer;
-			typedef value_type& reference;
+			typedef typename ft::iterator_traits<const_pointer>::value_type value_type;
+			typedef typename ft::iterator_traits<const_pointer>::difference_type difference_type;
+			typedef const_pointer pointer;
+			typedef typename ft::iterator_traits<const_pointer>::reference reference;
 			typedef std::bidirectional_iterator_tag iterator_category;
 
 			rbt_node* ptr_;

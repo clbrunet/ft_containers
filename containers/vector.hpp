@@ -35,10 +35,10 @@ namespace ft
 		class iterator : std::random_access_iterator_tag
 		{
 		public:
-			typedef T value_type;
-			typedef std::ptrdiff_t difference_type;
-			typedef value_type* pointer;
-			typedef value_type& reference;
+			typedef typename ft::iterator_traits<pointer>::value_type value_type;
+			typedef typename ft::iterator_traits<pointer>::difference_type difference_type;
+			typedef pointer pointer;
+			typedef typename ft::iterator_traits<pointer>::reference reference;
 			typedef std::random_access_iterator_tag iterator_category;
 
 			pointer ptr_;
@@ -180,10 +180,10 @@ namespace ft
 		class const_iterator : std::random_access_iterator_tag
 		{
 		public:
-			typedef T const value_type;
-			typedef std::ptrdiff_t difference_type;
-			typedef value_type* pointer;
-			typedef value_type& reference;
+			typedef typename ft::iterator_traits<const_pointer>::value_type value_type;
+			typedef typename ft::iterator_traits<const_pointer>::difference_type difference_type;
+			typedef const_pointer pointer;
+			typedef typename ft::iterator_traits<const_pointer>::reference reference;
 			typedef std::random_access_iterator_tag iterator_category;
 
 			pointer ptr_;
