@@ -12,10 +12,12 @@
 #include <list>
 #include <vector>
 #include <map>
+#include <stack>
 
 #include "list.hpp"
 #include "vector.hpp"
 #include "map.hpp"
+#include "stack.hpp"
 
 namespace tests
 {
@@ -30,6 +32,11 @@ namespace tests
 	}
 
 	namespace map
+	{
+		void launch();
+	}
+
+	namespace stack
 	{
 		void launch();
 	}

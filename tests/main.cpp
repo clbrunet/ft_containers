@@ -26,6 +26,9 @@ int main(int argc, char* argv[])
 		else if (strcmp(argv[i], "map") == 0) {
 			tests::map::launch();
 		}
+		else if (strcmp(argv[i], "stack") == 0) {
+			tests::stack::launch();
+		}
 		else {
 			std::cout << "Unknown container_name : " << argv[i] << std::endl;
 		}
