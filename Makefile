@@ -7,6 +7,7 @@ CXXFLAGS = -I ./containers/ -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=addr
 SRCS = tests/list.cpp \
 	   tests/vector.cpp \
 	   tests/map.cpp \
+	   tests/stack.cpp \
 	   tests/main.cpp
 
 all: $(FT_NAME) $(STD_NAME)
