@@ -243,11 +243,11 @@ namespace tests { namespace map
 		NAMESPACE::pair<NAMESPACE::map<int, int>::iterator, bool> pair;
 		NAMESPACE::map<int, int>::iterator it;
 
-		pair = map.insert(NAMESPACE::pair<int, int>(21, 2121));
+		pair = map.insert(NAMESPACE::make_pair<int, int>(21, 2121));
 		std::cout << "- new single element insert return : ["
 			<< pair.first->first << ", " << pair.first->second << "], "
 			<< std::boolalpha << pair.second << "\n";
-		pair = map.insert(NAMESPACE::pair<int, int>(21, 212121));
+		pair = map.insert(NAMESPACE::make_pair<int, int>(21, 212121));
 		std::cout << "- single element already insert return : ["
 			<< pair.first->first << ", " << pair.first->second << "], "
 			<< std::boolalpha << pair.second << "\n";
@@ -258,7 +258,7 @@ namespace tests { namespace map
 		}
 		std::cout << "\n";
 
-		it = map.insert(map.begin(), NAMESPACE::pair<int, int>(42, 4242));
+		it = map.insert(map.begin(), NAMESPACE::make_pair<int, int>(42, 4242));
 		std::cout << "- hint insert return : ["
 			<< it->first << ", " << it->second << "]" << "\n";
 		std::cout << "- after hint insert, values :";
