@@ -32,8 +32,8 @@ namespace ft
 		typedef typename allocator_type::const_reference const_reference;
 		typedef typename allocator_type::pointer pointer;
 		typedef typename allocator_type::const_pointer const_pointer;
-		class iterator;
 		class const_iterator;
+		typedef const_iterator iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -45,123 +45,6 @@ namespace ft
 	public:
 		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 		typedef std::size_t size_type;
-	
-		class iterator : std::bidirectional_iterator_tag
-		{
-		public:
-			typedef typename ft::iterator_traits<pointer>::value_type value_type;
-			typedef typename ft::iterator_traits<pointer>::difference_type difference_type;
-			typedef pointer pointer;
-			typedef typename ft::iterator_traits<pointer>::reference reference;
-			typedef std::bidirectional_iterator_tag iterator_category;
-
-			rbt_node* ptr_;
-
-			iterator() :
-				ptr_(NULL)
-			{
-				return;
-			}
-
-			iterator(rbt_node* ptr) :
-				ptr_(ptr)
-			{
-				return;
-			}
-
-			iterator(iterator const& src) :
-				ptr_(src.ptr_)
-			{
-				return;
-			}
-
-			virtual ~iterator()
-			{
-				return;
-			}
-
-			iterator& operator=(iterator const& rhs)
-			{
-				this->ptr_ = rhs.ptr_;
-				return *this;
-			}
-
-			bool operator==(const_iterator const& rhs) const
-			{
-				return this->ptr_ == rhs.ptr_;
-			}
-
-			bool operator!=(const_iterator const& rhs) const
-			{
-				return this->ptr_ != rhs.ptr_;
-			}
-
-			reference operator*() const
-			{
-				return this->ptr_->val;
-			}
-
-			pointer operator->() const
-			{
-				return &this->ptr_->val;
-			}
-
-			iterator& operator++()
-			{
-				if (this->ptr_->right->right) {
-					this->ptr_ = this->ptr_->right;
-					if (this->ptr_->left->right != this->ptr_) {
-						while (this->ptr_->left->left) {
-							this->ptr_ = this->ptr_->left;
-						}
-					}
-				}
-				else {
-					rbt_node* parent = this->ptr_->parent;
-					while (parent->left != this->ptr_) {
-						this->ptr_ = parent;
-						parent = this->ptr_->parent;
-					}
-					this->ptr_ = parent;
-				}
-				return *this;
-			}
-
-			iterator operator++(int)
-			{
-				iterator tmp = *this;
-				++(*this);
-				return tmp;
-			}
-
-			iterator& operator--()
-			{
-				if (this->ptr_->left->left) {
-					this->ptr_ = this->ptr_->left;
-					if (this->ptr_->right->left != this->ptr_) {
-						while (this->ptr_->right->right) {
-							this->ptr_ = this->ptr_->right;
-						}
-					}
-				}
-				else {
-					rbt_node* parent = this->ptr_->parent;
-					while (parent->right != this->ptr_) {
-						this->ptr_ = parent;
-						parent = this->ptr_->parent;
-					}
-					this->ptr_ = parent;
-				}
-				return *this;
-			}
-
-			iterator operator--(int)
-			{
-				iterator tmp = *this;
-				--(*this);
-				return tmp;
-			}
-		};
 
 		class const_iterator : std::bidirectional_iterator_tag
 		{
@@ -186,12 +69,6 @@ namespace ft
 				return;
 			}
 
-			const_iterator(iterator const& src) :
-				ptr_(src.ptr_)
-			{
-				return;
-			}
-
 			const_iterator(const_iterator const& src) :
 				ptr_(src.ptr_)
 			{
@@ -202,13 +79,6 @@ namespace ft
 			{
 				return;
 			}
-
-			const_iterator& operator=(iterator const& rhs)
-			{
-				this->ptr_ = rhs.ptr_;
-				return *this;
-			}
-
 
 			const_iterator& operator=(const_iterator const& rhs)
 			{
@@ -462,7 +332,7 @@ namespace ft
 					node = node->right;
 				}
 				else {
-					return ft::pair<iterator,bool>(node, false);
+					return ft::pair<iterator,bool>(iterator(node), false);
 				}
 			}
 		}
@@ -749,8 +619,8 @@ namespace ft
 			}
 			new_node->parent = parent;
 			*node_ptr = new_node;
-			fix_insertion(*node_ptr);
-			return ft::pair<iterator,bool>(iterator(*node_ptr), true);
+			fix_insertion(new_node);
+			return ft::pair<iterator,bool>(iterator(new_node), true);
 		}
 
 		void left_rotate_node(rbt_node* node)

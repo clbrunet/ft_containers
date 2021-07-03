@@ -798,8 +798,8 @@ namespace ft
 			}
 			new_node->parent = parent;
 			*node_ptr = new_node;
-			fix_insertion(*node_ptr);
-			return ft::pair<iterator,bool>(iterator(*node_ptr), true);
+			fix_insertion(new_node);
+			return ft::pair<iterator,bool>(iterator(new_node), true);
 		}
 
 		void left_rotate_node(rbt_node* node)
