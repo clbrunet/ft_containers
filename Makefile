@@ -2,7 +2,7 @@ FT_NAME = ft
 STD_NAME = std
 
 CXX = clang++
-CXXFLAGS = -I ./containers/ -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
+CXXFLAGS = -I ./containers/ -Wall -Wextra -Werror -std=c++98
 
 SRCS = tests/list.cpp \
 	   tests/vector.cpp \
