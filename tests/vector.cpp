@@ -174,17 +174,20 @@ namespace tests { namespace vector
 	{
 		std::cout << "max_size tests :\n";
 
-		NAMESPACE::vector<std::string> string_vec;
-		std::cout << "- string_vec vector, max_size() : "
-			<< string_vec.max_size() << "\n";
+		NAMESPACE::vector<std::string> string_vector;
+		std::cout << "- vector<std::string>, max_size() : "
+			<< string_vector.max_size() << "\n";
 
-		NAMESPACE::vector<char> char_vec;
-		std::cout << "- char_vec vector, max_size() : "
-			<< char_vec.max_size() << "\n";
+		NAMESPACE::vector<int> int_vector;
+		std::cout << "- vector<int>, max_size() : "
+			<< int_vector.max_size() << "\n";
+
+		NAMESPACE::vector<char> char_vector;
+		std::cout << "- vector<char>, max_size() : "
+			<< char_vector.max_size() << "\n";
 
 		std::cout << std::flush;
 	}
-
 	void resize()
 	{
 		std::cout << "resize tests :\n";

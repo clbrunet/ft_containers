@@ -205,11 +205,15 @@ namespace tests { namespace map
 		std::cout << "max_size tests :\n";
 
 		NAMESPACE::map<std::string, std::string> string_map;
-		std::cout << "- string_map map, max_size() : "
+		std::cout << "- map<std::string, std::string>, max_size() : "
 			<< string_map.max_size() << "\n";
 
+		NAMESPACE::map<int, int> int_map;
+		std::cout << "- map<int, int>, max_size() : "
+			<< int_map.max_size() << "\n";
+
 		NAMESPACE::map<char, char> char_map;
-		std::cout << "- char_map map, max_size() : "
+		std::cout << "- map<char, char>, max_size() : "
 			<< char_map.max_size() << "\n";
 
 		std::cout << std::flush;

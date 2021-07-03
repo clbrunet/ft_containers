@@ -194,13 +194,17 @@ namespace tests { namespace list
 	{
 		std::cout << "max_size tests :\n";
 
-		NAMESPACE::list<std::string> string_lst;
-		std::cout << "- string_lst list, max_size() : "
-			<< string_lst.max_size() << "\n";
+		NAMESPACE::list<std::string> string_list;
+		std::cout << "- list<std::string>, max_size() : "
+			<< string_list.max_size() << "\n";
 
-		NAMESPACE::list<char> char_lst;
-		std::cout << "- char_lst list, max_size() : "
-			<< char_lst.max_size() << "\n";
+		NAMESPACE::list<int> int_list;
+		std::cout << "- list<int>, max_size() : "
+			<< int_list.max_size() << "\n";
+
+		NAMESPACE::list<char> char_list;
+		std::cout << "- list<char>, max_size() : "
+			<< char_list.max_size() << "\n";
 
 		std::cout << std::flush;
 	}

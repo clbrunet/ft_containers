@@ -199,11 +199,15 @@ namespace tests { namespace set
 		std::cout << "max_size tests :\n";
 
 		NAMESPACE::set<std::string> string_set;
-		std::cout << "- string_set set, max_size() : "
+		std::cout << "- set<std::string>, max_size() : "
 			<< string_set.max_size() << "\n";
 
+		NAMESPACE::set<int> int_set;
+		std::cout << "- set<int>, max_size() : "
+			<< int_set.max_size() << "\n";
+
 		NAMESPACE::set<char> char_set;
-		std::cout << "- char_set set, max_size() : "
+		std::cout << "- set<char>, max_size() : "
 			<< char_set.max_size() << "\n";
 
 		std::cout << std::flush;
