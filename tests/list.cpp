@@ -750,6 +750,24 @@ namespace tests { namespace list
 		std::cout << std::flush;
 	}
 
+	void get_allocator()
+	{
+		std::cout << "get_allocator tests : ";
+
+		NAMESPACE::list<std::string> lst;
+		NAMESPACE::list<std::string>::allocator_type at = lst.get_allocator();
+
+		NAMESPACE::list<std::string>::value_type *str_p = at.allocate(1);
+		at.construct(str_p, "OK if you see this\n");
+
+		std::cout << *str_p;
+
+		at.destroy(str_p);
+		at.deallocate(str_p, 1);
+
+		std::cout << std::flush;
+	}
+
 	void relational_operators()
 	{
 		std::cout << "Relational operators tests :\n";
@@ -888,6 +906,8 @@ namespace tests { namespace list
 		sort();
 		std::cout << "\n";
 		reverse();
+		std::cout << "\n";
+		get_allocator();
 		std::cout << "\n";
 		relational_operators();
 

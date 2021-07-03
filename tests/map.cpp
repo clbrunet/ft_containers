@@ -578,6 +578,24 @@ namespace tests { namespace map
 		std::cout << std::flush;
 	}
 
+	void get_allocator()
+	{
+		std::cout << "get_allocator tests : ";
+
+		NAMESPACE::map<int, std::string> map;
+		NAMESPACE::map<int, std::string>::allocator_type at = map.get_allocator();
+
+		NAMESPACE::map<int, std::string>::value_type *vt = at.allocate(1);
+		at.construct(vt, NAMESPACE::make_pair(0, "OK if you see this\n"));
+
+		std::cout << vt->second;
+
+		at.destroy(vt);
+		at.deallocate(vt, 1);
+
+		std::cout << std::flush;
+	}
+
 	static void print_maps_comparaison(NAMESPACE::map<int, int> const& map,
 			NAMESPACE::map<int, int> const& map2)
 	{
@@ -683,6 +701,8 @@ namespace tests { namespace map
 		upper_bound();
 		std::cout << "\n";
 		equal_range();
+		std::cout << "\n";
+		get_allocator();
 		std::cout << "\n";
 		relational_operators();
 

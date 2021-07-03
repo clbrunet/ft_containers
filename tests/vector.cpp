@@ -572,6 +572,24 @@ namespace tests { namespace vector
 		std::cout << std::flush;
 	}
 
+	void get_allocator()
+	{
+		std::cout << "get_allocator tests : ";
+
+		NAMESPACE::vector<std::string> vec;
+		NAMESPACE::vector<std::string>::allocator_type at = vec.get_allocator();
+
+		NAMESPACE::vector<std::string>::value_type *vt = at.allocate(1);
+		at.construct(vt, "OK if you see this\n");
+
+		std::cout << *vt;
+
+		at.destroy(vt);
+		at.deallocate(vt, 1);
+
+		std::cout << std::flush;
+	}
+
 	static void print_vectors_comparaison(NAMESPACE::vector<int> const& vec,
 			NAMESPACE::vector<int> const& vec2)
 	{
@@ -672,6 +690,8 @@ namespace tests { namespace vector
 		swap();
 		std::cout << "\n";
 		clear();
+		std::cout << "\n";
+		get_allocator();
 		std::cout << "\n";
 		relational_operators();
 

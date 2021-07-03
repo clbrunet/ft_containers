@@ -542,6 +542,24 @@ namespace tests { namespace set
 		std::cout << std::flush;
 	}
 
+	void get_allocator()
+	{
+		std::cout << "get_allocator tests : ";
+
+		NAMESPACE::set<std::string> set;
+		NAMESPACE::set<std::string>::allocator_type at = set.get_allocator();
+
+		NAMESPACE::set<std::string>::value_type *vt = at.allocate(1);
+		at.construct(vt, "OK if you see this\n");
+
+		std::cout << *vt;
+
+		at.destroy(vt);
+		at.deallocate(vt, 1);
+
+		std::cout << std::flush;
+	}
+
 	static void print_sets_comparaison(NAMESPACE::set<int> const& set,
 			NAMESPACE::set<int> const& set2)
 	{
@@ -647,6 +665,8 @@ namespace tests { namespace set
 		upper_bound();
 		std::cout << "\n";
 		equal_range();
+		std::cout << "\n";
+		get_allocator();
 		std::cout << "\n";
 		relational_operators();
 
