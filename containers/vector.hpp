@@ -629,6 +629,10 @@ namespace ft
 
 		void insert(iterator position, size_type n, value_type const& val)
 		{
+			if (n == 0) {
+				return;
+			}
+
 			difference_type index = position.ptr_ - this->array_;
 			if (this->size_ + n > this->size_ * 2) {
 				this->reserve(this->size_ + n);
@@ -654,6 +658,10 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value,
 				bool>::type = true)
 		{
+			if (first == last) {
+				return;
+			}
+
 			difference_type index = position.ptr_ - this->array_;
 			size_type n = iteration_size(first, last);
 			if (this->size_ + n > this->size_ * 2) {
@@ -690,6 +698,10 @@ namespace ft
 
 		iterator erase(iterator first, iterator last)
 		{
+			if (first == last) {
+				return first;
+			}
+
 			size_type n = 0;
 			for (pointer it = first.ptr_; it != last.ptr_; ++it) {
 				this->alloc_.destroy(first.ptr_);
