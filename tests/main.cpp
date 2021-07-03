@@ -14,7 +14,9 @@ int main(int argc, char* argv[])
 			<< "  " << argv[0] << " container_name" << std::endl;
 		return 1;
 	}
-	std::cout << "Start tests\n";
+	std::string ft = "ft";
+	std::string std = "std";
+	std::cout << "Start tests with namespace : " << NAMESPACE << "\n";
 	for (int i = 1; i < argc; ++i) {
 		std::cout << std::endl;
 		if (strcmp(argv[i], "list") == 0) {
