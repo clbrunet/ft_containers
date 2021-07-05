@@ -1,6 +1,9 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+
 #include <iostream>
 
 #include <iterator>
@@ -340,6 +343,7 @@ namespace ft
 			this->ghost_node_->parent = this->ghost_node_;
 			this->ghost_node_->left = this->ghost_node_;
 			this->ghost_node_->right = this->ghost_node_;
+			this->ghost_node_->is_red = false;
 			this->nil_node_->is_red = false;
 			this->nil_node_->parent = NULL;
 			this->nil_node_->left = NULL;
@@ -362,6 +366,7 @@ namespace ft
 			this->ghost_node_->parent = this->ghost_node_;
 			this->ghost_node_->left = this->ghost_node_;
 			this->ghost_node_->right = this->ghost_node_;
+			this->ghost_node_->is_red = false;
 			this->nil_node_->is_red = false;
 			this->nil_node_->parent = NULL;
 			this->nil_node_->left = NULL;
@@ -382,6 +387,7 @@ namespace ft
 			this->ghost_node_->parent = this->ghost_node_;
 			this->ghost_node_->left = this->ghost_node_;
 			this->ghost_node_->right = this->ghost_node_;
+			this->ghost_node_->is_red = false;
 			this->nil_node_->is_red = false;
 			this->nil_node_->parent = NULL;
 			this->nil_node_->left = NULL;
@@ -1110,6 +1116,62 @@ namespace ft
 			}
 			it = this->upper_bound_impl(k);
 			return pair<iterator, iterator>(it, it);
+		}
+
+		void print_rbt() const
+		{
+			std::cout << "size = " << this->size() << std::endl;
+			std::cout << std::endl;
+			if (this->ghost_node_->left != this->ghost_node_) {
+				std::cout << "ghost->left = " << this->ghost_node_->left->val.first << std::endl;
+			}
+			if (this->ghost_node_->right != this->ghost_node_) {
+				std::cout << "ghost->right = " << this->ghost_node_->right->val.first << std::endl;
+			}
+			print_rbt(this->root_node_);
+			return;
+		}
+
+		void print_rbt(rbt_node* node) const
+		{
+			if (node == this->nil_node_ || node == this->ghost_node_) {
+				return;
+			}
+			std::cout << std::endl;
+			if (node->is_red) {
+				std::cout << RED;
+			}
+			std::cout << "val : " << node->val.first << std::endl;
+			std::cout << "parent : ";
+			if (node->parent) {
+				std::cout << node->parent->val.first << std::endl;
+			}
+			else {
+				std::cout << "NIL" << std::endl;
+			}
+			std::cout << "left : ";
+			if (node->left == this->ghost_node_) {
+				std::cout << "GHOST" << std::endl;
+			}
+			else if (node->left != this->nil_node_) {
+				std::cout << node->left->val.first << std::endl;
+			}
+			else {
+				std::cout << "NIL" << std::endl;
+			}
+			std::cout << "right : ";
+			if (node->right == this->ghost_node_) {
+				std::cout << "GHOST" << std::endl;
+			}
+			else if (node->right != this->nil_node_) {
+				std::cout << node->right->val.first << std::endl;
+			}
+			else {
+				std::cout << "NIL" << std::endl;
+			}
+			std::cout << RESET;
+			print_rbt(node->left);
+			print_rbt(node->right);
 		}
 	};
 

@@ -186,6 +186,7 @@ namespace ft
 			this->ghost_node_->parent = this->ghost_node_;
 			this->ghost_node_->left = this->ghost_node_;
 			this->ghost_node_->right = this->ghost_node_;
+			this->ghost_node_->is_red = false;
 			this->nil_node_->is_red = false;
 			this->nil_node_->parent = NULL;
 			this->nil_node_->left = NULL;
@@ -208,6 +209,7 @@ namespace ft
 			this->ghost_node_->parent = this->ghost_node_;
 			this->ghost_node_->left = this->ghost_node_;
 			this->ghost_node_->right = this->ghost_node_;
+			this->ghost_node_->is_red = false;
 			this->nil_node_->is_red = false;
 			this->nil_node_->parent = NULL;
 			this->nil_node_->left = NULL;
@@ -228,6 +230,7 @@ namespace ft
 			this->ghost_node_->parent = this->ghost_node_;
 			this->ghost_node_->left = this->ghost_node_;
 			this->ghost_node_->right = this->ghost_node_;
+			this->ghost_node_->is_red = false;
 			this->nil_node_->is_red = false;
 			this->nil_node_->parent = NULL;
 			this->nil_node_->left = NULL;
