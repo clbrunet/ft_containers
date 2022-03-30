@@ -1,4 +1,9 @@
-#include "tests.hpp"
+#include <sys/time.h>
+#include <vector>
+#include <stack>
+
+#include "stack.hpp"
+#include "vector.hpp"
 
 namespace tests { namespace stack
 {

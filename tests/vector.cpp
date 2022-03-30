@@ -1,4 +1,8 @@
-#include "tests.hpp"
+#include <sys/time.h>
+#include <climits>
+#include <vector>
+
+#include "vector.hpp"
 
 namespace tests { namespace vector
 {

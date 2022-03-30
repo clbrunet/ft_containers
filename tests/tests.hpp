@@ -5,23 +5,6 @@
 #define NAMESPACE ft
 #endif
 
-#include <sys/time.h>
-
-#include <iostream>
-#include <string>
-#include <climits>
-#include <list>
-#include <vector>
-#include <map>
-#include <stack>
-#include <set>
-
-#include "list.hpp"
-#include "vector.hpp"
-#include "map.hpp"
-#include "stack.hpp"
-#include "set.hpp"
-
 namespace tests
 {
 	namespace list

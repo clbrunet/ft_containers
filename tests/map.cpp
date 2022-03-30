@@ -1,4 +1,7 @@
-#include "tests.hpp"
+#include <sys/time.h>
+#include <map>
+
+#include "map.hpp"
 
 namespace tests { namespace map
 {
